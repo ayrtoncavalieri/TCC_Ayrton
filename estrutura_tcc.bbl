@@ -1,0 +1,203 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[ANEEL 2022]{Leilao_Transmissao}
+\abntrefinfo{ANEEL}{ANEEL}{2022}
+{ANEEL. \textbf{Usina termelétrica Norte Fluminense ganha o lote 4}. 2022.
+  \url{https://www.gov.br/aneel/pt-br/assuntos/noticias/2022/usina-termeletrica-norte-fluminense-ganha-o-lote-4}.
+Acessado em: 16 de Abril de 2026.}
+
+\bibitem[Crowdstrike 2025]{Endpoint_Definition}
+\abntrefinfo{Crowdstrike}{CROWDSTRIKE}{2025}
+{CROWDSTRIKE. \textbf{O que é um endpoint?} 2025.
+  \url{https://www.crowdstrike.com/pt-br/cybersecurity-101/endpoint-security/endpoint/}.
+Acessado em: 25 de Agosto de 2026.}
+
+\bibitem[Databricks 2025]{Dataframe_Definition}
+\abntrefinfo{Databricks}{DATABRICKS}{2025}
+{DATABRICKS. \textbf{O que são Dataframes?} 2025.
+  \url{https://www.databricks.com/br/blog/what-are-dataframes}.
+Acessado em: 24 de Agosto de 2026.}
+
+\bibitem[Hudak 1989]{Functional_Loop}
+\abntrefinfo{Hudak}{HUDAK}{1989}
+{HUDAK, P. Conception, evolution, and application of functional programming
+  languages.
+\textbf{ACM Computing Surveys, Vol. 21, No. 3, September 1989}, 1989.}
+
+\bibitem[IBM 2025]{REST_API_Definition}
+\abntrefinfo{IBM}{IBM}{2025}
+{IBM. \textbf{O que é API de REST?} 2025.
+  \url{https://www.ibm.com/br-pt/think/topics/rest-apis}.
+Acessado em: 16 de Agosto de 2026.}
+
+\bibitem[IEA 2025]{EDF_Reestatizacao}
+\abntrefinfo{IEA}{IEA}{2025}
+{IEA, I. E.~A. \textbf{Renationalisation of EDF}. 2025.
+  \url{https://www.iea.org/policies/16429-renationalisation-of-edf}.
+Acessado em: 16 de Abril de 2026.}
+
+\bibitem[Microsoft 2023]{PBI_DAX_Referencia}
+\abntrefinfo{Microsoft}{MICROSOFT}{2023a}
+{MICROSOFT. \textbf{Data Analysis Expressions (DAX) Reference}. 2023.
+  \url{https://learn.microsoft.com/en-us/dax/}.
+Acessado em: 19 de Abril de 2026.}
+
+\bibitem[Microsoft 2023]{PBI_DAX_Overview}
+\abntrefinfo{Microsoft}{MICROSOFT}{2023b}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{DAX overview}. 2023.
+  \url{https://learn.microsoft.com/en-us/dax/dax-overview}.
+Acessado em: 16 de Agosto de 2026.}
+
+\bibitem[Microsoft 2025]{Guia_de_ETL}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025a}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{ETL guide}. 2025.
+  \url{https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl}.
+Acessado em: 29 de Setembro de 2026.}
+
+\bibitem[Microsoft 2025]{JsonDocument}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025b}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Json.Document}. 2025.
+  \url{https://learn.microsoft.com/en-gb/powerquery-m/json-document}.
+Acessado em: 16 de Agosto de 2026.}
+
+\bibitem[Microsoft 2025]{NumberToText}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025c}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Number.ToText}. 2025.
+  \url{https://learn.microsoft.com/en-gb/powerquery-m/number-totext}.
+Acessado em: 24 de Junho de 2026.}
+
+\bibitem[Microsoft 2025]{PBI_Visuais_Customizados}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025d}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Power BI developer visuals
+  documentation}. 2025.
+  \url{https://learn.microsoft.com/en-us/power-bi/developer/visuals/}.
+Acessado em: 19 de Abril de 2026.}
+
+\bibitem[Microsoft 2025]{PBI_Tipos}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025e}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Power BI developer visuals
+  documentation}. 2025.
+  \url{https://learn.microsoft.com/en-gb/powerquery-m/m-spec-types}.
+Acessado em: 19 de Abril de 2026.}
+
+\bibitem[Microsoft 2025]{PBI_M_Referencia}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025f}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Power Query M formula language}. 2025.
+  \url{https://learn.microsoft.com/en-us/powerquery-m/}.
+Acessado em: 19 de Abril de 2026.}
+
+\bibitem[Microsoft 2025]{TextCombine}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025g}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Text.Combine}. 2025.
+  \url{https://learn.microsoft.com/en-gb/powerquery-m/text-combine}.
+Acessado em: 24 de Junho de 2026.}
+
+\bibitem[Microsoft 2025]{WebContents}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025h}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Web.Contents}. 2025.
+  \url{https://learn.microsoft.com/en-gb/powerquery-m/web-contents}.
+Acessado em: 24 de Junho de 2026.}
+
+\bibitem[Microsoft 2025]{Data_Gateway_Def}
+\abntrefinfo{Microsoft}{MICROSOFT}{2025i}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{What is an on-premises data gateway?}
+  2025.
+  \url{https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-onprem}.
+Acessado em: 24 de Agosto de 2026.}
+
+\bibitem[Microsoft 2026]{PBI_Fontes_Dados}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026a}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Fontes de dados no Power BI Desktop}.
+  2026.
+  \url{https://learn.microsoft.com/pt-br/power-bi/connect-data/desktop-data-sources}.
+Acessado em: 19 de Abril de 2026.}
+
+\bibitem[Microsoft 2026]{PBI_Sobre}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026b}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{O que é o Power BI?} 2026.
+  \url{https://learn.microsoft.com/pt-br/power-bi/fundamentals/power-bi-overview}.
+Acessado em: 19 de Abril de 2026.}
+
+\bibitem[Microsoft 2026]{PBI_Gateway_Python_R}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026c}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Power BI implementation planning:
+  Integration with other services}. 2026.
+  \url{https://learn.microsoft.com/en-us/power-bi/guidance/powerbi-implementation-planning-integration-with-other-services}.
+Acessado em: 14 de Agosto de 2026.}
+
+\bibitem[Microsoft 2026]{PBI_RLS}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026d}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Row-level security (RLS) with Power BI}.
+  2026.
+  \url{https://learn.microsoft.com/en-us/fabric/security/service-admin-row-level-security}.
+Acessado em: 16 de Agosto de 2026.}
+
+\bibitem[Microsoft 2026]{ValueMetadata}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026e}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Value.Metadata}. 2026.
+  \url{https://learn.microsoft.com/en-gb/powerquery-m/number-totext}.
+Acessado em: 16 de Agosto de 2026.}
+
+\bibitem[Solutions 2021]{EDF_PS_Missao}
+\abntrefinfo{Solutions}{SOLUTIONS}{2021}
+{SOLUTIONS, E.~P. \textbf{EDF at a glance}. 2021.
+  \url{https://www.edf.fr/en/the-edf-group/edf-at-a-glance}.
+Acessado em: 16 de Abril de 2026.}
+
+\bibitem[Solutions 2025]{Logo_EDF}
+\abntrefinfo{Solutions}{SOLUTIONS}{2025a}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{EDF France | EDF FR}. 2025.
+  \url{https://www.edf.fr/en}.
+Acessado em: 31 de Março de 2026.}
+
+\bibitem[Solutions 2025]{EDF_PS_Brasil}
+\abntrefinfo{Solutions}{SOLUTIONS}{2025b}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{EDF power solutions no Brasil}. 2025.
+  \url{https://brazil.edf-powersolutions.com/quem-somos/edf-brasil/}.
+Acessado em: 16 de Abril de 2026.}
+
+\bibitem[Solutions 2025]{EDF_PS_Unificacao}
+\abntrefinfo{Solutions}{SOLUTIONS}{2025c}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Grupo EDF lança EDF power solutions no
+  Brasil e integra suas operações}. 2025.
+  \url{https://brazil.edf-powersolutions.com/2025/06/10/grupo-edf-lanca-edf-power-solutions-no-brasil-e-integra-suas-operacoes/}.
+Acessado em: 16 de Abril de 2026.}
+
+\bibitem[Solutions 2026]{EDF_Historico}
+\abntrefinfo{Solutions}{SOLUTIONS}{2026}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{L'énergie des français depuis 80 ans}.
+  2026.
+Acessado em: 16 de Abril de 2026.
+Dispon{\'\i}vel em: \url{https://www.edf.fr/groupe-edf/edf-en-bref/histoire}.}
+
+\bibitem[Sénat 2024]{Sen_Frances}
+\abntrefinfo{Sénat}{SéNAT}{2024}
+{SéNAT. \textbf{Proposition de loi visant à protéger le groupe Électricité
+  de France d'un démembrement}. 2024.
+  \url{https://www.senat.fr/rap/l23-472/l23-472_mono.html}.
+Acessado em: 16 de Abril de 2026.}
+
+\bibitem[TOPdesk 2026]{TOPdesk_Incident_API}
+\abntrefinfo{TOPdesk}{TOPDESK}{2026a}
+{TOPDESK. \textbf{Incident Management API}. 2026.
+  \url{https://developers.topdesk.com/explorer/?page=incident}.
+Acessado em: 24 de Junho de 2026.}
+
+\bibitem[TOPdesk 2026]{TOPdesk_API}
+\abntrefinfo{TOPdesk}{TOPDESK}{2026b}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{TOPdesk API}. 2026.
+  \url{https://developers.topdesk.com/}.
+Acessado em: 24 de Junho de 2026.}
+
+\bibitem[TOPdesk 2026]{TOPdesk_Login}
+\abntrefinfo{TOPdesk}{TOPDESK}{2026c}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{TOPdesk API}. 2026.
+  \url{https://docs.topdesk.com/VA2023R2/en/authentication-for-action-sequences.html}.
+Acessado em: 24 de Junho de 2026.}
+
+\end{thebibliography}

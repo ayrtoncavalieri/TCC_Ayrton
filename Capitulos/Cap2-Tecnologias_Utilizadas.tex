@@ -1,0 +1,58 @@
+\chapter{Metodologias e Tecnologias Utilizadas}
+\label{cap:relacionados}
+
+Na área de Análise de Dados, conhecimentos de bancos de dados (como o SQL), estruturas de dados, lógica de programação, \textit{User Experience} (UX), requisições REST e estatística são aprofundados durante o estágio, sendo necessários para o exercício da profissão no futuro. Também serão utilizados conhecimentos de visualização de dados para melhor entregar os resultados esperados para a área cliente, junto à rotina ETL, usada para tratar os dados provenientes da fonte, que será explicada ao longo do capítulo.
+
+Sobre as ferramentas empregadas, neste trabalho se utilizarão o TOPdesk, sistema de ITSM utilizado pela organização, de onde proverão os dados empregados e o PowerBI, uma aplicação da Microsoft especializada em tratamento, e visualização de dados. Detalhes sobre as ferramentas e onde são empregadas serão apresentados ao longo do capítulo.
+
+\section{Tratamento de Dados}
+O tratamento de dados é um passo importante para a disponibilização deles. É com ela que executa-se o saneamento dos dados entregues por uma fonte, corrigindo erros, executam-se cálculos prévios que poderão ser úteis a uma análise futura, filtram-se os dados que não interessam, dentre outras funções que podem ser utilizadas para entregar a informação requisitada. Para isso, utilizamos dois \textit{pipelines}, o ETL e o ELT, que serão detalhados a seguir. Ambas as rotinas permitem a consolidação de fontes de dados de diferentes origens.
+
+\subsection{Pipeline ETL}
+\label{subsec:ETL_Pipeline}
+A rotina ETL realiza a \textit{Extração, Transformação e Carregamento} dos dados de uma base fornecida. Inicialmente, extraindo-os da origem, permitindo a disponibilidade para um motor de transformação, que aplicará operações, como filtragem de dados indesejados, criação de colunas calculadas que serão utilizadas a posteriori, correções e validações. Por fim, os dados são carregados na base de dados de destino, podendo ser concomitantemente de origem diversas origens.
+
+Geralmente, as três fases podem ser executadas em paralelo, acelerando a disponibilização dos dados. Porém, este paralelismo deve ser executado observando-se a quantidade de recurso computacional disponível e a natureza do que está sendo carregado, a fim de não causar condições de corrida que podem sujar o resultado. \cite{Guia_de_ETL}
+
+\subsection{Pipeline ELT}
+Na rotina ELT, o carregamento e a transformação são feitas de forma invertida, com isso, rotinas de tratamento podem ser empregadas sobre o conjunto de dados já carregado no destino, removendo o motor de transformação do \textit{pipeline}, e entregando a responsabilidade das transformações para o destino. Neste caso, o destino precisa ter capacidade computacional necessária para realizar as transformações. \cite{Guia_de_ETL}
+
+\subsection{ELT vs. ETL}
+Os pipelines são empregados para cenários diferentes de processamento de dados, sendo assim, é necessário ter uma ponderação antes da implementação.
+
+O ELT é recomendável para ambientes que possuem uma base de dados de destino com armazenamento e processamento escalonáveis, onde as rotinas podem se aproveitar dos recursos disponíveis e podendo se ajustar às necessidades dos usuários. Também recomenda-se ser utilizado caso queira preservar a base de dados original para realizar novas transformações no futuro, ou análise exploratória.
+
+O ETL é recomendável quando a base de destino tem recursos limitados para a execução das transformações, podendo elas serem feitas com recurso computacional a parte. Também pode ser usado caso queira-se aplicar regras de negócio complexas, ou quando faz-se necessária a auditoria ou aplicação de regulamentações aos dados antes de serem carregados. \cite{Guia_de_ETL}
+
+\section{Tecnologias empregadas}
+Neste trabalho foram empregadas duas ferramentas. A primeira é o sistema ITSM utilizado pela companhia, o TOPdesk, que mantém os dados de chamados que serão utilizados. A segunda ferramenta é o PowerBI, plataforma da Microsoft que permite a aquisição de inteligência para a tomada de decisões pelos gestores das áreas. 
+
+\subsection{TOPdesk}
+O TOPdesk é uma plataforma que fornece serviços de apoio e gerência com foco nos profissionais de TI, RH (recursos humanos) e finanças, como gestão de ativos e ITSM, além de uma base de conhecimento que serve como uma enciclopédia, permitindo um acesso estruturado aos manuais, referências e procedimentos que foram submetidos. 
+
+
+Essa plataforma fornece uma API REST\footnote{Uma API REST é ``uma Interface de Programação de Aplicativos (API) que segue os princípios de \textit{design} do estilo arquitetônico REST (sigla em inglês para transferência de estado representacional), utilizado para conectar sistemas hipermídia distribuídos'' \cite{REST_API_Definition}.}, que permite interações com os serviços prestados, como, por exemplo, consulta às bases de dados da plataforma para obtenção de ativos, chamados e operadores que, no caso deste trabalho, refere-se aos profissionais da TI e prestadores de serviços associados. Além disso, ela disponibiliza uma  documentação de apoio ao desenvolvedor para o desenvolvimento de aplicações que se conectem e interajam com o sistema. \cite{TOPdesk_API} 
+
+\subsection{Power BI}
+Segundo a Microsoft, 
+\begin{quoting}[rightmargin=0cm,leftmargin=4cm]  \small
+	O Power BI é a plataforma de análise de negócios da Microsoft que ajuda você a transformar dados em \textit{insights} acionáveis. Seja você um usuário de negócios, criador de relatórios ou desenvolvedor, o Power BI oferece ferramentas e serviços integrados para se conectar, visualizar e compartilhar dados em toda a sua organização. \cite{PBI_Sobre}
+\end{quoting}
+
+
+Portanto, o Power BI é uma ferramenta proprietária da Microsoft, voltada à análise de dados para negócios, que permite o tratamento e a visualização de dados de diversas fontes, como bancos de dados, arquivos JSON ou XML, \textit{dataframes}\footnote{Segundo a Databricks, um \textit{dataframe} é ``...uma estrutura de dados que organiza os dados em uma tabela bidimensional de linhas e colunas, como uma planilha'' \cite{Dataframe_Definition}.} processados por Python e R e dados hospedados na \textit{Web}, por exemplo. Entre as fontes de dados hospedados, destacam-se: o fluxo de dados hospedados no serviço de PBI na nuvem da Microsoft, os documentos hospedados no serviço de SharePoint (também da Microsoft) e os documentos disponibilizados por requisições REST  \cite{PBI_Fontes_Dados}.
+
+
+A ferramenta disponibiliza duas linguagens para processamento de dados: a Power Query (ou Script M) \cite{PBI_M_Referencia} e a DAX \cite{PBI_DAX_Referencia}, que atuam em momentos diferentes na confecção dos relatórios. Além disso, ela também suporta a criação de visuais personalizados, utilizando JavaScript e R, e o processamento de dados, utilizando Python e R  \cite{PBI_Visuais_Customizados}.
+
+
+Graças às ferramentas que o Power BI disponibiliza, é possível desenvolver rotinas ETL dentro da aplicação ou usar rotinas já escritas em Python e R. Porém, ao utilizar essa última, é necessária a configuração de um \textit{gateway} de dados\footnote{Um \textit{gateway} de dados é, segundo a Microsoft, ``...é um aplicativo cliente do Windows instalado localmente que atua como uma ponte entre suas fontes de dados locais e serviços na nuvem da Microsoft'' (tradução livre) \cite{Data_Gateway_Def}.}, pois a computação será realizada localmente nessa máquina \cite{PBI_Gateway_Python_R}.
+
+
+
+\subsubsection{Script M}
+Uma das linguagens disponibilizadas pela plataforma é o Script M. Seu paradigma é funcional, sensível à caixa e semelhante ao F\# \cite{PBI_M_Referencia}. Ela descreve as etapas de transformação e carregamento dos dados. Nesse papel, ela é responsável pela realização das transformações conforme explicadas na subseção \ref{subsec:ETL_Pipeline}. 
+
+
+\subsubsection{DAX}
+Outra linguagem disponibilizada é o DAX, sigla para \textit{Data Analysis Expressions} \cite{PBI_DAX_Referencia}. Ela é uma biblioteca de funções que permite a criação de rotinas de pós-processamento dos dados. Contém funções para a criação de medidas, colunas e tabelas calculadas e fórmulas para a função de garantia de segurança em nível de linha, limitando o acesso aos dados segundo o usuário \cite{PBI_DAX_Overview} \cite{PBI_RLS}.

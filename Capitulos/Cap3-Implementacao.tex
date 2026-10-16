@@ -1,0 +1,98 @@
+\chapter{Implementação}
+\label{cap:relacionados}
+
+Neste capítulo, começaremos com as rotina de Extração, Transformação e Carregamento dos dados (ETL), iniciando pela extração ao abordar como fazer para realizarmos a coleta dessas informações do serviço externo. A seguir, abordaremos a transformação, onde fazemos o saneamento da base de dados baseado na amostra obtida na fase anterior, realizando o tratamento para que os dados estejam corretos, ou homogeneizados, o que é fundamental para o carregamento correto. No carregamento iremos efetivamente trazer os dados para a ferramenta e estabelecer as relações entre as tabelas de dados, utilizando as chaves que o desenvolvedor designou. Depois, veremos como fazer relatórios, utilizando as visualizações providas pela plataforma, que comunicam para o usuário informações que são relevantes e que auxiliam no processo de tomada de decisões estratégicas. Será abordado como ele influencia a tomada de decisões, permitindo que o gestor interaja com os mostradores, podendo obter detalhamentos e informações extras.
+
+\section{ETL - \textit{Extract, Transform \& Load}}
+
+Nesta sessão, discorreremos sobre a rotina ETL, sigla em inglês para Extração, Transformação e Carregamento. Ao finalizar essa rotina, os dados devem estar prontos para utilização, sendo possível montar relatórios e deles obter discernimento a cerca do que foi coletado da plataforma.
+
+\subsection{Extrair}
+
+A Extração é a primeira etapa para obtermos dados que possam ser utilizados. Para isso, temos que ter uma forma de conectarmos à base de dados e fazer o download dos registros necessários.
+
+Como falado na introdução, o Power BI oferece muitos meios de conexão nativos, no caso do TOPdesk, temos uma situação onde um conector atende parcialmente a nossa necessidade, precisando de mais tratamentos para que a rotina seja executada. Para isso, iremos utilizar a função nativa \texttt{Web.Contents}, que permite obter conteúdos de páginas web, configurar cabeçalhos, consultas, chaves de API, tempo de \textit{timeout}, e outros parâmetros retornando para nós uma estrutura contendo a resposta do servidor, contendo o conteúdo recebido e cabeçalhos de resposta \cite{WebContents}.
+
+O TOPdesk retorna os dados da base em páginas com, no máximo, 10.000 linhas, que não contemplam toda a base de dados que estamos acessando, neste caso, o TOPdesk retornará em seu cabeçalho a resposta 206, e um endereço para o próximo segmento de dados no item \texttt{x-next-page-url}.\cite{TOPdesk_Incident_API} Porém, para reduzir o número de parâmetros, utilizaremos o número da página, passado na seção de consulta da URL, para navegar pelos dados. Esse conhecimento resulta na função \texttt{FetchData}, apresentada a seguir:
+
+\newpage
+\begin{lstlisting}
+FetchData = (pageNumber as number, pageSize as number, token as text, accumulated as list) =>
+    let
+        pagePosition = Number.ToText(pageSize * pageNumber),
+	    header = [Authorization = Text.Combine({"Basic ", token})],
+        source = Web.Contents("https://edfnortefluminense.topdesk.net/tas/api/incidents", [Query = [pageStart=pagePosition, pageSize=Number.ToText(pageSize)], Timeout=#duration(0, 0, 2, 0), Headers=header]),
+        json = Json.Document(source),
+        status = Value.Metadata(source)[Response.Status],
+        result = if status = 206 then @FetchData(pageNumber + 1, pageSize, token, accumulated & {json}) else accumulated & {json}
+    in
+        result
+\end{lstlisting}
+\begin{center}
+\text{Código da função FetchData}
+\end{center}
+Esta função recebe como parâmetros o número da página, a quantidade de linhas por página, a string com o token de autenticação e uma lista vazia para armazenar o conteúdo das respostas, em seguida executa os seguintes passos em ordem:
+\begin{itemize}
+    \item Calcula a posição da linha que inicia a página, para que a resposta desloque-se pelos dados e comece a entrega da linha requisitada, transformando o resultado numa string utilizando a função \texttt{Number.ToText}\cite{NumberToText};
+    \item Monta o cabeçalho da requisição, gerando um \textit{registro} \cite{PBI_Tipos} que será passado para a função \texttt{Web.Contents} contendo o valor de "\textit{Authorization}", que indica para a página qual é o tipo de autenticação a ser utilizada e o token para autorizar. Neste caso, usamos autenticação básica, passando um texto contendo a \textit{string} "\texttt{Basic }" concatenada com a \textit{string} de autenticação, que é formada pela concatenação do usuário e senha, codificados em base 64 \cite{TOPdesk_Login}. Em Script M, a concatenação de textos é feita utilizando a função nativa \texttt{Text.Combine}\cite{TextCombine};
+    \item A função \texttt{Web.Contents} é chamada, passando como parâmetros o endereço do \textit{endpoint}\footnote{Segundo a Crowdstrike, um \textit{endpoint} é "...qualquer dispositivo físico que pode ser conectado a uma rede, incluindo computadores, laptops, celulares, tablets e servidores" \cite{Endpoint_Definition}.} da API do TOPdesk, um registro contendo a consulta (\textit{Query}) a ser concatenada na URL, sendo este parâmetro também um registro, contendo os valores \textit{pageStart} e \textit{pageSize} definidos anteriormente na função, o tempo máximo de espera (\textit{timeout}), sendo um parâmetro do tipo duração, e o cabeçalho, sendo este também um registro contendo o valor \textit{Authorization}. Recebendo como resposta um texto em formato JSON, o cabeçalho de resposta, com o código HTTP recebido, o conteúdo requisitado, e outros valores não utilizados neste contexto\cite{PBI_Tipos};
+    \item Utiliza a função \texttt{Json.Document} \cite{JsonDocument}, que recebe a string em formato JSON obtida no passo anterior, retornando um registro com o conteúdo contido nela;
+    \item Extrai os metadados associados à resposta de \texttt{Web.Contents}, utilizando a função \texttt{Value.Metadata} \cite{ValueMetadata}, obtendo o conteúdo indexado pela chave \texttt{Response.Status}.
+\end{itemize}
+
+Vemos que a implementação é feita de forma recursiva, montando uma lista de listas, que na transformação serão concatenadas. Isso se deve ao fato de Script M ser uma linguagem funcional, não possuindo estrutura de loop como nas linguagens imperativas \cite{Functional_Loop}.
+
+\subsection{Transformar}
+A segunda etapa é a Transformação, nela nós realizamos processamentos nos dados recebidos para que eles fiquem limpos e homogeneizados, dessa forma, podendo ser usados para construção de relatórios.
+Para isso, iremos utilizar as funções disponíveis no Script M que nos permitem calcular colunas e tabelas, e corrigir erros encontrados no conjunto de dados obtido da plataforma ITSM.
+
+\begin{lstlisting}
+finalResult = List.Combine(FetchData(0, 10000, "chave_acesso", {})),
+#"Converted to Table" = Table.FromList(finalResult, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+#"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "status", "number", "request", "requests", "action", "attachments", "caller", "callerBranch", "callerLocation", "branchExtraFieldA", "branchExtraFieldB", "briefDescription", "externalNumber", "category", "subcategory", "callType", "entryType", "object", "asset", "branch", "location", "impact", "urgency", "priority", "duration", "actualDuration", "targetDate", "sla", "onHold", "onHoldDate", "onHoldDuration", "feedbackMessage", "feedbackRating", "operator", "operatorGroup", "supplier", "processingStatus", "responded", "responseDate", "completed", "completedDate", "closed", "closedDate", "closureCode", "timeSpent", "timeSpentFirstLine", "timeSpentSecondLine", "timeSpentPartial", "timeSpentLinkedPartials", "timeSpentSecondLineAndPartials", "itemCosts", "objectCosts", "costs", "escalationStatus", "escalationReason", "escalationOperator", "callDate", "creator", "creationDate", "modifier", "modificationDate", "majorCall", "majorCallObject", "publishToSsd", "monitored", "expectedTimeSpent", "archivingReason", "mainIncident", "optionalFields1", "optionalFields2", "externalLinks", "partialIncidents"}, {"id", "status", "number", "request", "requests", "action", "attachments", "caller", "callerBranch", "callerLocation", "branchExtraFieldA", "branchExtraFieldB", "briefDescription", "externalNumber", "category", "subcategory", "callType", "entryType", "object", "asset", "branch", "location", "impact", "urgency", "priority", "duration", "actualDuration", "targetDate", "sla", "onHold", "onHoldDate", "onHoldDuration", "feedbackMessage", "feedbackRating", "operator", "operatorGroup", "supplier", "processingStatus", "responded", "responseDate", "completed", "completedDate", "closed", "closedDate", "closureCode", "timeSpent", "timeSpentFirstLine", "timeSpentSecondLine", "timeSpentPartial", "timeSpentLinkedPartials", "timeSpentSecondLineAndPartials", "itemCosts", "objectCosts", "costs", "escalationStatus", "escalationReason", "escalationOperator", "callDate", "creator", "creationDate", "modifier", "modificationDate", "majorCall", "majorCallObject", "publishToSsd", "monitored", "expectedTimeSpent", "archivingReason", "mainIncident", "optionalFields1", "optionalFields2", "externalLinks", "partialIncidents"}),
+#"Expanded caller" = Table.ExpandRecordColumn(#"Expanded Column1", "caller", {"id", "dynamicName", "email", "phoneNumber", "mobileNumber", "branch", "department", "budgetHolder"}, {"caller.id", "caller.dynamicName", "caller.email", "caller.phoneNumber", "caller.mobileNumber", "caller.branch", "caller.department", "caller.budgetHolder"}),
+#"Expanded callerBranch" = Table.ExpandRecordColumn(#"Expanded caller", "callerBranch", {"name", "timeZone"}, {"callerBranch.name", "callerBranch.timeZone"}),
+#"Expanded caller.department" = Table.ExpandRecordColumn(#"Expanded callerBranch", "caller.department", {"id", "name"}, {"caller.department.id", "caller.department.name"}),
+#"Expanded category" = Table.ExpandRecordColumn(#"Expanded caller.department", "category", {"id", "name"}, {"category.id", "category.name"}),
+#"Expanded subcategory" = Table.ExpandRecordColumn(#"Expanded category", "subcategory", {"id", "name"}, {"subcategory.id", "subcategory.name"}),
+#"Expanded callType" = Table.ExpandRecordColumn(#"Expanded subcategory", "callType", {"name"}, {"callType.name"}),
+#"Expanded entryType" = Table.ExpandRecordColumn(#"Expanded callType", "entryType", {"name"}, {"entryType.name"}),
+#"Expanded asset" = Table.ExpandRecordColumn(#"Expanded entryType", "asset", {"id"}, {"asset.id"}),
+#"Expanded priority" = Table.ExpandRecordColumn(#"Expanded asset", "priority", {"name"}, {"priority.name"}),
+#"Expanded duration" = Table.ExpandRecordColumn(#"Expanded priority", "duration", {"name"}, {"duration.name"}),
+#"Expanded sla" = Table.ExpandRecordColumn(#"Expanded duration", "sla", {"responseTargetDate", "targetDate"}, {"sla.responseTargetDate", "sla.targetDate"}),
+#"Expanded operator" = Table.ExpandRecordColumn(#"Expanded sla", "operator", {"status", "name"}, {"operator.status", "operator.name"}),
+#"Expanded operatorGroup" = Table.ExpandRecordColumn(#"Expanded operator", "operatorGroup", {"name"}, {"operatorGroup.name"}),
+#"Duplicated Column" = Table.DuplicateColumn(#"Expanded operatorGroup", "operatorGroup.name", "operatorGroup.name - Original"),
+#"Expanded processingStatus" = Table.ExpandRecordColumn(#"Duplicated Column", "processingStatus", {"name"}, {"processingStatus.name"}),
+#"Expanded modifier" = Table.ExpandRecordColumn(#"Expanded processingStatus", "modifier", {"name"}, {"modifier.name"}),
+#"Corrigindo RH" = Table.ReplaceValue(#"Expanded modifier","RH","Recursos Humanos",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo Elétrica" = Table.ReplaceValue(#"Corrigindo RH","Elétrica","Elétrico",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo C&L" = Table.ReplaceValue(#"Corrigindo Elétrica","Compras e Logistica","Compras e Logística",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo Mecânica" = Table.ReplaceValue(#"Corrigindo C&L","Mecânico","Mecânica",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo Mecânica1" = Table.ReplaceValue(#"Corrigindo Mecânica","Mecânida","Mecânica",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo Química" = Table.ReplaceValue(#"Corrigindo Mecânica1","Quimica","Química",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo TI" = Table.ReplaceValue(#"Corrigindo Química","Tecnologia da Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo TI1" = Table.ReplaceValue(#"Corrigindo TI","Tecnologia de Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo P&D" = Table.ReplaceValue(#"Corrigindo TI1","P&D","Pesquisa e Desenvolvimento",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo Marlim Azul" = Table.ReplaceValue(#"Corrigindo P&D","Marlim Azu","Marlim Azul",Replacer.ReplaceText,{"callerBranch.name"}),
+#"Corrigindo Marlim Azul1" = Table.ReplaceValue(#"Corrigindo Marlim Azul","Marlim Azull","Marlim Azul",Replacer.ReplaceText,{"callerBranch.name"}),
+#"Corrigindo OP Group" = Table.ReplaceValue(#"Corrigindo Marlim Azul1","TI - Infraestrutura","Infraestrutura",Replacer.ReplaceText,{"operatorGroup.name"}),
+#"Corrigindo OP Group1" = Table.ReplaceValue(#"Corrigindo OP Group","TI - Sistemas","Sistemas",Replacer.ReplaceText,{"operatorGroup.name"}),
+#"Corrigindo OP Group 2" = Table.ReplaceValue(#"Corrigindo OP Group1","N1 Sistemas","Sistemas",Replacer.ReplaceText,{"operatorGroup.name"}),
+#"Corrigindo OP Group 3" = Table.ReplaceValue(#"Corrigindo OP Group 2","N1 Infraestrutura","Infraestrutura",Replacer.ReplaceText,{"operatorGroup.name"}),
+#"Corrigindo OP Group 4" = Table.ReplaceValue(#"Corrigindo OP Group 3","N2 Sistemas","Sistemas",Replacer.ReplaceText,{"operatorGroup.name"}),
+#"Corrigindo OP Group 5" = Table.ReplaceValue(#"Corrigindo OP Group 4","N2 Infraestrutura","Infraestrutura",Replacer.ReplaceText,{"operatorGroup.name"}),
+#"Corrigindo P&D 2" = Table.ReplaceValue(#"Corrigindo OP Group 5","Pesquisa e DesenvolvimentoI","Pesquisa e Desenvolvimento",Replacer.ReplaceText,{"caller.department.name"}),
+#"Corrigindo C&L2" = Table.ReplaceValue(#"Corrigindo P&D 2","Compras","Compras e Logística",Replacer.ReplaceValue,{"caller.department.name"}),
+#"Corrigindo INSTCON" = Table.ReplaceValue(#"Corrigindo C&L2","Instrumentação","Instrumentação e Controle",Replacer.ReplaceValue,{"caller.department.name"}),
+#"Changed Type" = Table.TransformColumnTypes(#"Corrigindo INSTCON",{{"targetDate", type datetime}, {"sla.targetDate", type datetime}, {"onHoldDate", type datetime}, {"callDate", type datetime}, {"creationDate", type datetime}, {"modificationDate", type datetime}, {"completedDate", type datetime}, {"closedDate", type datetime}}),
+#"Expanded creator" = Table.ExpandRecordColumn(#"Changed Type", "creator", {"name"}, {"creator.name"}),
+#"Duplicated Column1" = Table.AddColumn(#"Expanded creator", "requestT", each Text.Middle([request], Text.PositionOf([request], ":") + 1, Text.Length([request]))),
+Custom1 = Table.AddColumn(#"Duplicated Column1", "requestTT", each Text.Middle([requestT], Text.PositionOf([requestT], ":") + 1, Text.Length([requestT]))),
+#"Replaced Value" = Table.ReplaceValue(Custom1,"Descrição detalhada do problema:","",Replacer.ReplaceText,{"requestTT"}),
+#"Removed Columns" = Table.RemoveColumns(#"Replaced Value",{"requestT"})
+\end{lstlisting}
+\begin{center}
+	\text{Código da Transformação de Dados}
+\end{center}

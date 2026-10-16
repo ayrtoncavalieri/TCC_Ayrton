@@ -1,0 +1,137 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: estrutura_tcc.aux
+A level-1 auxiliary file: PreTextuais/FichaCatalografica.aux
+A level-1 auxiliary file: PreTextuais/FichaAprovacao.aux
+A level-1 auxiliary file: PreTextuais/Dedicatoria.aux
+A level-1 auxiliary file: PreTextuais/Agradecimento.aux
+A level-1 auxiliary file: PreTextuais/Epigrafe.aux
+A level-1 auxiliary file: PreTextuais/DeclaracaoIA.aux
+A level-1 auxiliary file: PreTextuais/Resumo.aux
+A level-1 auxiliary file: PreTextuais/ListaSiglas.aux
+A level-1 auxiliary file: Capitulos/Cap1-Introducao.aux
+A level-1 auxiliary file: Capitulos/Cap2-Tecnologias_Utilizadas.aux
+A level-1 auxiliary file: Capitulos/Cap3-Implementacao.aux
+The style file: abntex2-alf.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Database file #1: abntex2-options.bib
+Database file #2: bibliografia.bib
+Warning--entry type for "Sen_Frances" isn't style-file defined
+--line 1 of file bibliografia.bib
+Warning--entry type for "Logo_EDF" isn't style-file defined
+--line 10 of file bibliografia.bib
+Warning--entry type for "Leilao_Transmissao" isn't style-file defined
+--line 19 of file bibliografia.bib
+Warning--entry type for "EDF_Historico" isn't style-file defined
+--line 37 of file bibliografia.bib
+Warning--entry type for "EDF_Reestatizacao" isn't style-file defined
+--line 46 of file bibliografia.bib
+Warning--entry type for "EDF_PS_Brasil" isn't style-file defined
+--line 65 of file bibliografia.bib
+Warning--entry type for "EDF_PS_Unificacao" isn't style-file defined
+--line 74 of file bibliografia.bib
+Warning--entry type for "EDF_PS_Missao" isn't style-file defined
+--line 83 of file bibliografia.bib
+Warning--entry type for "PBI_Sobre" isn't style-file defined
+--line 101 of file bibliografia.bib
+Warning--entry type for "PBI_Fontes_Dados" isn't style-file defined
+--line 110 of file bibliografia.bib
+Warning--entry type for "PBI_DAX_Referencia" isn't style-file defined
+--line 119 of file bibliografia.bib
+Warning--entry type for "PBI_DAX_Overview" isn't style-file defined
+--line 128 of file bibliografia.bib
+Warning--entry type for "PBI_M_Referencia" isn't style-file defined
+--line 137 of file bibliografia.bib
+Warning--entry type for "PBI_Tipos" isn't style-file defined
+--line 146 of file bibliografia.bib
+Warning--entry type for "PBI_RLS" isn't style-file defined
+--line 155 of file bibliografia.bib
+Warning--entry type for "PBI_Gateway_Python_R" isn't style-file defined
+--line 164 of file bibliografia.bib
+Warning--entry type for "PBI_Visuais_Customizados" isn't style-file defined
+--line 173 of file bibliografia.bib
+Warning--entry type for "TOPdesk_API" isn't style-file defined
+--line 182 of file bibliografia.bib
+Warning--entry type for "TOPdesk_Incident_API" isn't style-file defined
+--line 191 of file bibliografia.bib
+Warning--entry type for "TOPdesk_Login" isn't style-file defined
+--line 200 of file bibliografia.bib
+Warning--entry type for "WebContents" isn't style-file defined
+--line 209 of file bibliografia.bib
+Warning--entry type for "TextCombine" isn't style-file defined
+--line 218 of file bibliografia.bib
+Warning--entry type for "NumberToText" isn't style-file defined
+--line 227 of file bibliografia.bib
+Warning--entry type for "ValueMetadata" isn't style-file defined
+--line 236 of file bibliografia.bib
+Warning--entry type for "JsonDocument" isn't style-file defined
+--line 245 of file bibliografia.bib
+Warning--entry type for "REST_API_Definition" isn't style-file defined
+--line 254 of file bibliografia.bib
+Warning--entry type for "Data_Gateway_Def" isn't style-file defined
+--line 271 of file bibliografia.bib
+Warning--entry type for "Guia_de_ETL" isn't style-file defined
+--line 280 of file bibliografia.bib
+Warning--entry type for "Dataframe_Definition" isn't style-file defined
+--line 289 of file bibliografia.bib
+Warning--entry type for "Endpoint_Definition" isn't style-file defined
+--line 297 of file bibliografia.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
++---------------------------------------------------------+
+| Estilo bibliográfico abntex2-alf.bst versão v-1.9.7           |
+| Em caso de dúvidas ou problemas com este estilo procure |
+| http://www.abntex.net.br/                               |
++---------------------------------------------------------+
+You've used 37 entries,
+            6714 wiz_defined-function locations,
+            1363 strings with 14138 characters,
+and the built_in function-call counts, 22081 in all, are:
+= -- 1840
+> -- 466
+< -- 52
++ -- 274
+- -- 156
+* -- 1246
+:= -- 3060
+add.period$ -- 153
+call.type$ -- 38
+change.case$ -- 264
+chr.to.int$ -- 19
+cite$ -- 31
+duplicate$ -- 1251
+empty$ -- 2045
+format.name$ -- 713
+if$ -- 5272
+int.to.chr$ -- 22
+int.to.str$ -- 1
+missing$ -- 616
+newline$ -- 164
+num.names$ -- 155
+pop$ -- 745
+preamble$ -- 1
+purify$ -- 111
+quote$ -- 0
+skip$ -- 1475
+stack$ -- 1
+substring$ -- 771
+swap$ -- 477
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 189
+width$ -- 0
+write$ -- 472
+(There were 30 warnings)

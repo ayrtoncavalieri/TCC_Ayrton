@@ -1,0 +1,96 @@
+\documentclass[12pt, % tamanho da fonte
+	%openright,	 % capítulos começam em pág ímpar
+	oneside,     %para impressão apenas em um lado (formato digital).	  
+	%twoside,   %para impressão em frente e verso.  
+	a4paper,     % tamanho do papel. 
+	english,     % Idioma adicional para hifenização
+	brazil       % Idioma principal 
+	]{abntex2}
+	
+\input{packages}  % Estrutura do Texto e Pacotes Principais
+\usepackage{listings} % listings e xcolor são responsáveis pela adição de segmentos de código destacados
+\usepackage{xcolor}
+\lstset{
+  breaklines=true,            % Enable line breaking
+ % breakatwhitespace=true,     % Break only at white space if possible
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, % Symbol at line break
+  frame=single,               % Draw a box around code
+  basicstyle=\ttfamily\small, % Font style
+  backgroundcolor=\color{white},
+  columns=flexible            % Makes sure text fits nicely
+  extendedchars=true,              % Suporte básico a caracteres acentuados
+  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {ã}{{\~a}}1 {ẽ}{{\~e}}1 {ĩ}{{\~i}}1 {õ}{{\~o}}1 {ũ}{{\~u}}1
+  {Ã}{{\~A}}1 {Ẽ}{{\~E}}1 {Ĩ}{{\~I}}1 {Õ}{{\~O}}1 {Ũ}{{\~U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+}
+
+% -- Informações para Capa e Folha de Rosto a serem editadas
+\titulo{Desenvolvimento de visualizações para o acompanhamento  de chamados de plataforma ITSM utilizando o Power BI}
+\subtitulo{}
+\autor{Ayrton Cavalieri de Almeida} 
+\autorcite{SOBRENOME, Nome}
+\local{Rio das Ostras} \uf{RJ}
+\data{XX de XXXXX de 2026} \dia{XX} \mes{XX} \ano{2026} %deixar sem preencher antes do TCC
+\orientador[Orientadora:]{Profa. Dra. Maise Dantas da Silva}
+%\orientador[Orientadora:]{Profa. Dra. Nome completo}
+\ttorientador{UFF} % Instituição do orientador
+%\coorientador{Prof. Dr. Nome do Coorientador}
+%\coorientador[Coorientadora]{Profa. Dra. Nome da Coorientadora}
+%\ttcoorientador{UFF} % Instituição do Coorientador
+\instituicao{Universidade Federal Fluminense} \sigla{UFF}
+\instituto{Instituto de Ciência e Tecnologia}
+\departamento{Departamento de Computação}
+\curso{Ciência da Computação}	
+\tipotrabalho{Trabalho de conclusão de curso}
+\grau{Bacharel em Ciência da Computação}
+
+%------Nomes dos examinadores.  
+\examinadorum{Prof\textsuperscript{a}. Dr\textsuperscript{a}. Nome da professora} 
+\ttexaminadorum{UFF}
+\examinadordois{Prof. Dr. Nome do professor} 
+\ttexaminadordois{UFF}
+%\examinadortres{Prof. Dr. Membro da Banca  3}
+%\ttexaminadortres{Universidade Federal de ... - UFXX}
+%\examinadorquatro{Prof. Dr. Membro da Banca  4}
+%\ttexaminadorquatro{Universidade Federal de ... - UFXX}
+
+% ------------------------------------------------------
+\begin{document} % Início do documento
+\frenchspacing  % Retira espaço obsoleto entre as frases.
+% ----------------------------------------------------------
+% -- Elementos Pré-Textuais: -------------------------------
+\imprimircapa  % Capa
+\imprimirfolhaderosto 
+\include{PreTextuais/FichaCatalografica}
+\include{PreTextuais/FichaAprovacao} 
+\include{PreTextuais/Dedicatoria}
+\include{PreTextuais/Agradecimento}
+\include{PreTextuais/Epigrafe}
+\include{PreTextuais/DeclaracaoIA}
+\include{PreTextuais/Resumo}
+\listafiguras
+\listatabelas
+\include{PreTextuais/ListaSiglas}
+%\include{PreTextuais/ListaSimbolos}
+\sumario
+% ----------------------------------------------------------
+% -- Capítulos do Trabalho: --------------------------------
+\textual 
+\include{Capitulos/Cap1-Introducao}
+\include{Capitulos/Cap2-Tecnologias_Utilizadas}
+\include{Capitulos/Cap3-Implementacao}
+%\include{Capitulos/Cap4-Resultados}
+%\include{Capitulos/Cap5-Conclusao}
+% ----------------------------------------------------------
+% -- Elementos Pós-Textuais: -------------------------------
+\postextual  
+\bibliography{bibliografia} % Referências bibliográficas
+%\include{PosTextuais/Apendice}
+%\include{PosTextuais/Anexo}
+%\includepdf[pages={1,3-5}]{PosTextuais/includepdfpages.pdf}
+% ----------------------------------------------------------
+\end{document}  % fim do documento
