@@ -16,20 +16,20 @@
 \contentsline {section}{\numberline {\textnormal {\textnormal {1}.2}}Sobre o estágio de TI}{16}{section.1.2}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \contentsline {chapter}{\chapternumberline {\textnormal {2}}\MakeTextUppercase []{Metodologias e Tecnologias Utilizadas}}{18}{chapter.2}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {2}.1}}Tratamento de Dados}{18}{section.2.1}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {2}.1}}Tratamento de dados}{18}{section.2.1}%
 \contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {2}.1}.1}}Pipeline ETL}{18}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {2}.1}.2}}Pipeline ELT}{18}{subsection.2.1.2}%
 \contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {2}.1}.3}}ELT vs. ETL}{19}{subsection.2.1.3}%
 \contentsline {section}{\numberline {\textnormal {\textnormal {2}.2}}Tecnologias empregadas}{19}{section.2.2}%
 \contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {2}.2}.1}}TOPdesk}{19}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {2}.2}.2}}Power BI}{20}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {2}.2}.2}}Power BI}{19}{subsection.2.2.2}%
 \contentsline {subsubsection}{\numberline {\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.1}}Script M}{20}{subsubsection.2.2.2.1}%
-\contentsline {subsubsection}{\numberline {\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}DAX}{21}{subsubsection.2.2.2.2}%
+\contentsline {subsubsection}{\numberline {\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}DAX}{20}{subsubsection.2.2.2.2}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {\textnormal {3}}\MakeTextUppercase []{Implementação}}{22}{chapter.3}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.1}}ETL - \textit {Extract, Transform \& Load}}{22}{section.3.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.1}.1}}Extrair}{22}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.1}.2}}Transformar}{24}{subsection.3.1.2}%
+\contentsline {chapter}{\chapternumberline {\textnormal {3}}\MakeTextUppercase []{Implementação}}{21}{chapter.3}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.1}}ETL - \textit {Extract, Transform \& Load}}{21}{section.3.1}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.1}.1}}Extrair}{21}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.1}.2}}Transformar}{23}{subsection.3.1.2}%
 \vspace {\cftbeforechapterskip }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
-\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{29}{section*.21}%
+\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{28}{section*.21}%

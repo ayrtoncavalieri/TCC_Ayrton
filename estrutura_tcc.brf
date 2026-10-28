@@ -20,19 +20,19 @@
 \backcite {PBI_Visuais_Customizados}{{20}{\textnormal {\textnormal {\textnormal {2}.2}.2}}{subsection.2.2.2}}
 \backcite {PBI_Gateway_Python_R}{{20}{\textnormal {\textnormal {\textnormal {2}.2}.2}}{subsection.2.2.2}}
 \backcite {PBI_M_Referencia}{{20}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.1}}{subsubsection.2.2.2.1}}
+\backcite {PBI_DAX_Referencia}{{20}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
+\backcite {PBI_DAX_Overview}{{20}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
+\backcite {PBI_RLS}{{20}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
 \backcite {Dataframe_Definition}{{20}{2}{Hfootnote.2}}
 \backcite {Data_Gateway_Def}{{20}{3}{Hfootnote.3}}
-\backcite {PBI_DAX_Referencia}{{21}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
-\backcite {PBI_DAX_Overview}{{21}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
-\backcite {PBI_RLS}{{21}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
-\backcite {WebContents}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{subsection.3.1.1}}
-\backcite {TOPdesk_Incident_API}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{subsection.3.1.1}}
-\backcite {NumberToText}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {WebContents}{{21}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{subsection.3.1.1}}
+\backcite {TOPdesk_Incident_API}{{21}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{subsection.3.1.1}}
+\backcite {NumberToText}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {PBI_Tipos}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {TOPdesk_Login}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {TextCombine}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {Endpoint_Definition}{{22}{1}{Hfootnote.4}}
 \backcite {PBI_Tipos}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {TOPdesk_Login}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {TextCombine}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {Endpoint_Definition}{{23}{1}{Hfootnote.4}}
-\backcite {PBI_Tipos}{{24}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {JsonDocument}{{24}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {ValueMetadata}{{24}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {Functional_Loop}{{24}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {JsonDocument}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {ValueMetadata}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {Functional_Loop}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
