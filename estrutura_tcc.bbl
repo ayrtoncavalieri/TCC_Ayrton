@@ -29,9 +29,15 @@ Acessado em: 24 de Agosto de 2026.}
   languages.
 \textbf{ACM Computing Surveys, Vol. 21, No. 3, September 1989}, 1989.}
 
+\bibitem[IBM 2024]{SLA_Definition}
+\abntrefinfo{IBM}{IBM}{2024}
+{IBM. \textbf{What is an SLA (service-level agreement)?} 2024.
+  \url{https://www.ibm.com/think/topics/service-level-agreement}.
+Acessado em: 03 de Novembro de 2026.}
+
 \bibitem[IBM 2025]{REST_API_Definition}
 \abntrefinfo{IBM}{IBM}{2025}
-{IBM. \textbf{O que é API de REST?} 2025.
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{O que é API de REST?} 2025.
   \url{https://www.ibm.com/br-pt/think/topics/rest-apis}.
 Acessado em: 16 de Agosto de 2026.}
 
