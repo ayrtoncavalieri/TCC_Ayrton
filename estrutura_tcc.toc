@@ -39,6 +39,8 @@
 \contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.3}.1}}Página 1 - Estatísticas Gerais}{32}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.3}.2}}Página 2 - Chamados Ativos}{33}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.3}.3}}Páginas 3 - Evolução dos Chamados Abertos por Departamento}{36}{subsection.3.3.3}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {\textnormal {4}}\MakeTextUppercase []{Conclusão}}{37}{chapter.4}%
 \vspace {\cftbeforechapterskip }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
-\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{37}{section*.34}%
+\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{38}{section*.34}%

@@ -294,13 +294,13 @@ O segundo código faz a classificação da duração dos chamados nas cestas def
  	\label{fig:placeholder Figura 13}
  \end{figure}
  
- O terceiro elemento de interesse são os 3 cartões que apresentam a quantidade de chamados, a média e a mediana do tempo. Para que a média e mediana não mostrassem a performance dos funcionários durante a reunião, as interações partindo do filtro de operadores é desligada. Sabendo a média e a mediana é possível inferir se há chamados que estão abertos há muito tempo e que podem precisar de priorização. 
+ O terceiro elemento de interesse são os 3 cartões que apresentam a quantidade de chamados, a média e a mediana do tempo. Para que a média e mediana não mostrassem a performance dos funcionários durante a reunião, as interações partindo do filtro de operadores é desligada, exceto em uma versão deste relatório disponibilizado exclusivamente para a gestão. Sabendo a média e a mediana é possível inferir se há chamados que estão abertos há muito tempo e que podem precisar de priorização. 
 
 Por fim, esta página conta com 3 filtros, sendo de operador, de intervalo de data, e de subdepartamento. Com eles os funcionários da TI conseguem acompanhar melhor os chamados, já que permitem um controle fino sobre as informações que são exibidas no gráfico, na tabela e nos cartões.
 
 \subsection{Páginas 3 - Evolução dos Chamados Abertos por Departamento}
 
-A última página deste relatório permite o acompanhamento da quantidade de chamados abertos por dia, com separação por departamento. Com ela, o gestor pode verificar tendências de aumento, ou diminuição, na quantidade de chamados e auxilia na tomada de decisões estratégicas do departamento, bem como em negociações sobre SLA (Service-Level Agreement), que, segundo a IBM, é "... um contrato entre um provedor de serviço e um cliente que define o serviço a ser fornecido e o nível de performance esperado" \cite{SLA_Definition}. Uma imagem desta tela será exibida a seguir:
+A última página deste relatório permite o acompanhamento da quantidade de chamados abertos por dia, com separação por departamento. Com ela, o gestor pode verificar tendências de aumento, ou diminuição, na quantidade de chamados e auxilia na tomada de decisões estratégicas do departamento, bem como em negociações sobre SLA (Service-Level Agreement). Segundo a IBM, é "... um contrato entre um provedor de serviço e um cliente que define o serviço a ser fornecido e o nível de performance esperado" \cite{SLA_Definition}. Uma imagem desta tela será exibida a seguir:
 
  \begin{figure}[!ht]
 	\centering
@@ -309,6 +309,6 @@ A última página deste relatório permite o acompanhamento da quantidade de cha
 	\label{fig:placeholder Figura 14}
 \end{figure}
 
-Esta página tem como elemento principal um gráfico de linha, que permite o acompanhamento ao longo do tempo da quantidade de chamados que estão abertos. Também dispõe de filtros para o intervalo de data, o(s) departamento(s), e o(s) subdepartamento(s) da TI a serem consultados. 
+Esta página tem como elemento principal um gráfico de linha, que permite o acompanhamento ao longo do tempo da quantidade de chamados que estão abertos. O gráfico foi alimentado com dados da tabela dinâmica e medida criadas anteriormente. Também dispõe de filtros para o intervalo de data, o(s) departamento(s), e o(s) subdepartamento(s) da TI a serem consultados. 
 
 Finalizada a montagem dessas 3 páginas, o relatório pode ser submetido ao serviço de nuvem do Power BI, da Microsoft, podendo ser atualizado automaticamente, e prover acesso para todos os funcionários da TI.
