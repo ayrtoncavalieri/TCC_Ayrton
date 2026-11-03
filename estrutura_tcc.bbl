@@ -53,6 +53,43 @@ Acessado em: 19 de Abril de 2026.}
   \url{https://learn.microsoft.com/en-us/dax/dax-overview}.
 Acessado em: 16 de Agosto de 2026.}
 
+\bibitem[Microsoft 2024]{DAX_ADDCOLUMNS}
+\abntrefinfo{Microsoft}{MICROSOFT}{2024a}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{ADDCOLUMNS}. 2024.
+  \url{https://learn.microsoft.com/en-us/dax/addcolumns-function-dax}.
+Acessado em: 01 de Novembro de 2026.}
+
+\bibitem[Microsoft 2024]{DAX_CALENDAR}
+\abntrefinfo{Microsoft}{MICROSOFT}{2024b}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{CALENDAR}. 2024.
+  \url{https://learn.microsoft.com/en-us/dax/calendar-function-dax}.
+Acessado em: 01 de Novembro de 2026.}
+
+\bibitem[Microsoft 2024]{DAX_COUNTROWS}
+\abntrefinfo{Microsoft}{MICROSOFT}{2024c}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{COUNTROWS}. 2024.
+  \url{https://learn.microsoft.com/en-us/dax/countrows-function-dax}.
+Acessado em: 01 de Novembro de 2026.}
+
+\bibitem[Microsoft 2024]{DAX_FILTER}
+\abntrefinfo{Microsoft}{MICROSOFT}{2024d}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{FILTER}. 2024.
+  \url{https://learn.microsoft.com/en-us/dax/filter-function-dax}.
+Acessado em: 01 de Novembro de 2026.}
+
+\bibitem[Microsoft 2024]{DAX_ISBLANK}
+\abntrefinfo{Microsoft}{MICROSOFT}{2024e}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{ISBLANK}. 2024.
+  \url{https://learn.microsoft.com/en-us/dax/isblank-function-dax}.
+Acessado em: 02 de Novembro de 2026.}
+
+\bibitem[Microsoft 2024]{TMDL}
+\abntrefinfo{Microsoft}{MICROSOFT}{2024f}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{Tabular Model Definition Language
+  (TMDL)}. 2024.
+  \url{https://learn.microsoft.com/en-us/analysis-services/tmdl/tmdl-overview}.
+Acessado em: 31 de Outubro de 2026.}
+
 \bibitem[Microsoft 2025]{Guia_de_ETL}
 \abntrefinfo{Microsoft}{MICROSOFT}{2025a}
 {\underline{\ \ \ \ \ \ \ \ }. \textbf{ETL guide}. 2025.
@@ -110,35 +147,59 @@ Acessado em: 24 de Junho de 2026.}
   \url{https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-onprem}.
 Acessado em: 24 de Agosto de 2026.}
 
-\bibitem[Microsoft 2026]{PBI_Fontes_Dados}
+\bibitem[Microsoft 2026]{DAX_CALCULATE}
 \abntrefinfo{Microsoft}{MICROSOFT}{2026a}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{CALCULATE}. 2026.
+  \url{https://learn.microsoft.com/en-us/dax/calculate-function-dax}.
+Acessado em: 01 de Novembro de 2026.}
+
+\bibitem[Microsoft 2026]{DAX_DATEDIFF}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026b}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{DATEDIFF}. 2026.
+  \url{https://learn.microsoft.com/en-us/dax/datediff-function-dax}.
+Acessado em: 02 de Novembro de 2026.}
+
+\bibitem[Microsoft 2026]{Editar_Interacoes}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026c}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{FILTER}. 2026.
+  \url{https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions}.
+Acessado em: 02 de Novembro de 2026.}
+
+\bibitem[Microsoft 2026]{PBI_Fontes_Dados}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026d}
 {\underline{\ \ \ \ \ \ \ \ }. \textbf{Fontes de dados no Power BI Desktop}.
   2026.
   \url{https://learn.microsoft.com/pt-br/power-bi/connect-data/desktop-data-sources}.
 Acessado em: 19 de Abril de 2026.}
 
+\bibitem[Microsoft 2026]{DAX_IF}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026e}
+{\underline{\ \ \ \ \ \ \ \ }. \textbf{IF}. 2026.
+  \url{https://learn.microsoft.com/en-us/dax/if-function-dax}.
+Acessado em: 02 de Novembro de 2026.}
+
 \bibitem[Microsoft 2026]{PBI_Sobre}
-\abntrefinfo{Microsoft}{MICROSOFT}{2026b}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026f}
 {\underline{\ \ \ \ \ \ \ \ }. \textbf{O que é o Power BI?} 2026.
   \url{https://learn.microsoft.com/pt-br/power-bi/fundamentals/power-bi-overview}.
 Acessado em: 19 de Abril de 2026.}
 
 \bibitem[Microsoft 2026]{PBI_Gateway_Python_R}
-\abntrefinfo{Microsoft}{MICROSOFT}{2026c}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026g}
 {\underline{\ \ \ \ \ \ \ \ }. \textbf{Power BI implementation planning:
   Integration with other services}. 2026.
   \url{https://learn.microsoft.com/en-us/power-bi/guidance/powerbi-implementation-planning-integration-with-other-services}.
 Acessado em: 14 de Agosto de 2026.}
 
 \bibitem[Microsoft 2026]{PBI_RLS}
-\abntrefinfo{Microsoft}{MICROSOFT}{2026d}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026h}
 {\underline{\ \ \ \ \ \ \ \ }. \textbf{Row-level security (RLS) with Power BI}.
   2026.
   \url{https://learn.microsoft.com/en-us/fabric/security/service-admin-row-level-security}.
 Acessado em: 16 de Agosto de 2026.}
 
 \bibitem[Microsoft 2026]{ValueMetadata}
-\abntrefinfo{Microsoft}{MICROSOFT}{2026e}
+\abntrefinfo{Microsoft}{MICROSOFT}{2026i}
 {\underline{\ \ \ \ \ \ \ \ }. \textbf{Value.Metadata}. 2026.
   \url{https://learn.microsoft.com/en-gb/powerquery-m/number-totext}.
 Acessado em: 16 de Agosto de 2026.}

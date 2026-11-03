@@ -25,14 +25,24 @@
 \backcite {PBI_RLS}{{20}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
 \backcite {Dataframe_Definition}{{20}{2}{Hfootnote.2}}
 \backcite {Data_Gateway_Def}{{20}{3}{Hfootnote.3}}
-\backcite {WebContents}{{21}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{subsection.3.1.1}}
-\backcite {TOPdesk_Incident_API}{{21}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{subsection.3.1.1}}
-\backcite {NumberToText}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {PBI_Tipos}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {TOPdesk_Login}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {TextCombine}{{22}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {Endpoint_Definition}{{22}{1}{Hfootnote.4}}
-\backcite {PBI_Tipos}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {JsonDocument}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {ValueMetadata}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
-\backcite {Functional_Loop}{{23}{\textnormal {\textnormal {\textnormal {3}.1}.1}}{lstnumber.-1.10}}
+\backcite {TMDL}{{22}{\textnormal {\textnormal {3}.1}}{figure.caption.18}}
+\backcite {WebContents}{{25}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
+\backcite {TOPdesk_Incident_API}{{25}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
+\backcite {NumberToText}{{26}{1}{Item.6}}
+\backcite {PBI_Tipos}{{26}{2}{Item.7}}
+\backcite {TOPdesk_Login}{{26}{2}{Item.7}}
+\backcite {TextCombine}{{26}{2}{Item.7}}
+\backcite {Endpoint_Definition}{{26}{1}{Hfootnote.4}}
+\backcite {PBI_Tipos}{{27}{3}{Item.8}}
+\backcite {JsonDocument}{{27}{4}{Item.9}}
+\backcite {ValueMetadata}{{27}{5}{Item.10}}
+\backcite {Functional_Loop}{{27}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{Item.10}}
+\backcite {DAX_CALENDAR}{{30}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
+\backcite {DAX_ADDCOLUMNS}{{30}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
+\backcite {DAX_CALCULATE}{{30}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
+\backcite {DAX_COUNTROWS}{{30}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
+\backcite {DAX_FILTER}{{31}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
+\backcite {Editar_Interacoes}{{31}{\textnormal {\textnormal {\textnormal {3}.2}.6}}{subsection.3.2.6}}
+\backcite {DAX_IF}{{34}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
+\backcite {DAX_ISBLANK}{{34}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
+\backcite {DAX_DATEDIFF}{{34}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}

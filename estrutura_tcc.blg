@@ -70,20 +70,40 @@ Warning--entry type for "TextCombine" isn't style-file defined
 --line 218 of file bibliografia.bib
 Warning--entry type for "NumberToText" isn't style-file defined
 --line 227 of file bibliografia.bib
-Warning--entry type for "ValueMetadata" isn't style-file defined
+Warning--entry type for "TMDL" isn't style-file defined
 --line 236 of file bibliografia.bib
-Warning--entry type for "JsonDocument" isn't style-file defined
+Warning--entry type for "ValueMetadata" isn't style-file defined
 --line 245 of file bibliografia.bib
-Warning--entry type for "REST_API_Definition" isn't style-file defined
+Warning--entry type for "JsonDocument" isn't style-file defined
 --line 254 of file bibliografia.bib
+Warning--entry type for "REST_API_Definition" isn't style-file defined
+--line 263 of file bibliografia.bib
 Warning--entry type for "Data_Gateway_Def" isn't style-file defined
---line 271 of file bibliografia.bib
-Warning--entry type for "Guia_de_ETL" isn't style-file defined
 --line 280 of file bibliografia.bib
-Warning--entry type for "Dataframe_Definition" isn't style-file defined
+Warning--entry type for "Guia_de_ETL" isn't style-file defined
 --line 289 of file bibliografia.bib
+Warning--entry type for "Dataframe_Definition" isn't style-file defined
+--line 298 of file bibliografia.bib
 Warning--entry type for "Endpoint_Definition" isn't style-file defined
---line 297 of file bibliografia.bib
+--line 306 of file bibliografia.bib
+Warning--entry type for "DAX_CALENDAR" isn't style-file defined
+--line 315 of file bibliografia.bib
+Warning--entry type for "DAX_ADDCOLUMNS" isn't style-file defined
+--line 324 of file bibliografia.bib
+Warning--entry type for "DAX_CALCULATE" isn't style-file defined
+--line 333 of file bibliografia.bib
+Warning--entry type for "DAX_COUNTROWS" isn't style-file defined
+--line 342 of file bibliografia.bib
+Warning--entry type for "DAX_FILTER" isn't style-file defined
+--line 351 of file bibliografia.bib
+Warning--entry type for "Editar_Interacoes" isn't style-file defined
+--line 360 of file bibliografia.bib
+Warning--entry type for "DAX_IF" isn't style-file defined
+--line 369 of file bibliografia.bib
+Warning--entry type for "DAX_ISBLANK" isn't style-file defined
+--line 378 of file bibliografia.bib
+Warning--entry type for "DAX_DATEDIFF" isn't style-file defined
+--line 387 of file bibliografia.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=200001) to 20 items from 10.
@@ -93,45 +113,45 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 | Em caso de dúvidas ou problemas com este estilo procure |
 | http://www.abntex.net.br/                               |
 +---------------------------------------------------------+
-You've used 37 entries,
+You've used 47 entries,
             6714 wiz_defined-function locations,
-            1363 strings with 14138 characters,
-and the built_in function-call counts, 22081 in all, are:
-= -- 1840
-> -- 466
+            1405 strings with 15255 characters,
+and the built_in function-call counts, 28261 in all, are:
+= -- 2310
+> -- 616
 < -- 52
-+ -- 274
-- -- 156
-* -- 1246
-:= -- 3060
-add.period$ -- 153
-call.type$ -- 38
-change.case$ -- 264
-chr.to.int$ -- 19
-cite$ -- 31
-duplicate$ -- 1251
-empty$ -- 2045
-format.name$ -- 713
-if$ -- 5272
-int.to.chr$ -- 22
++ -- 333
+- -- 206
+* -- 1606
+:= -- 3922
+add.period$ -- 203
+call.type$ -- 48
+change.case$ -- 344
+chr.to.int$ -- 20
+cite$ -- 41
+duplicate$ -- 1601
+empty$ -- 2625
+format.name$ -- 943
+if$ -- 6752
+int.to.chr$ -- 31
 int.to.str$ -- 1
-missing$ -- 616
-newline$ -- 164
-num.names$ -- 155
-pop$ -- 745
+missing$ -- 796
+newline$ -- 214
+num.names$ -- 205
+pop$ -- 975
 preamble$ -- 1
-purify$ -- 111
+purify$ -- 141
 quote$ -- 0
-skip$ -- 1475
+skip$ -- 1804
 stack$ -- 1
-substring$ -- 771
-swap$ -- 477
+substring$ -- 981
+swap$ -- 617
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 189
+while$ -- 249
 width$ -- 0
-write$ -- 472
-(There were 30 warnings)
+write$ -- 622
+(There were 40 warnings)

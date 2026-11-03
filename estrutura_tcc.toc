@@ -27,9 +27,17 @@
 \contentsline {subsubsection}{\numberline {\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}DAX}{20}{subsubsection.2.2.2.2}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \contentsline {chapter}{\chapternumberline {\textnormal {3}}\MakeTextUppercase []{Implementação}}{21}{chapter.3}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.1}}ETL - \textit {Extract, Transform \& Load}}{21}{section.3.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.1}.1}}Extrair}{21}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.1}.2}}Transformar}{23}{subsection.3.1.2}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.1}}Power BI}{21}{section.3.1}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.2}}ETL - \textit {Extract, Transform \& Load}}{23}{section.3.2}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.2}.1}}Extrair}{25}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.2}.2}}Transformar}{27}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.2}.3}}Carregar}{29}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.2}.4}}Relacionamentos}{29}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.2}.5}}Criação de tabela dinâmica e medida usando DAX}{29}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.2}.6}}Interações dos elementos visuais do relatório}{31}{subsection.3.2.6}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.3}}Montagem do Visual}{32}{section.3.3}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.3}.1}}Página 1 - Estatísticas Gerais}{32}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.3}.2}}Página 2 - Chamados Ativos}{33}{subsection.3.3.2}%
 \vspace {\cftbeforechapterskip }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
-\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{28}{section*.21}%
+\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{36}{section*.33}%
