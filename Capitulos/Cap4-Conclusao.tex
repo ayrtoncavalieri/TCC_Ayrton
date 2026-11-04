@@ -1,13 +1,30 @@
 \chapter{Conclusão}
 
-O objetivo deste relatório é a montagem de mostradores que permitam aos profissionais de TI fazer acompanhamentos dos chamados que estão registrados no sistema ITSM da empresa. Empresas geram grande volume de dados, que podem ser utilizados para a tomada de decisões que impactam operações em larga escala.
+Este Trabalho de Conclusão de Curso apresentou o desenvolvimento e a implementação de uma solução de \textit{Business Intelligence} voltada para o acompanhamento e a gestão de chamados de suporte técnico em uma plataforma ITSM (TOPdesk), utilizando o Power BI no âmbito das atividades de estágio na EDF Brasil (Usina Termelétrica Norte Fluminense -- UTENF). 
 
-Além de relatórios de performance, esses dados podem ser usados para alimentar sistemas de Inteligência Artificial (IA), que podem automaticamente detectar anomalias e ineficiências, alertando aos atores responsáveis prontamente, sem que necessite intervenção humana. A IA não busca substituir a decisão dos humanos em empresas, mas sim liberar as pessoas para que consigam melhorar a produtividade.
+\subsection{Síntese do Trabalho e Contribuições}
 
-Porém, custo dessa ferramenta ainda é elevado para a maioria das empresas, só que os dados já estão disponíveis, aguardando a estruturação necessária para a tomada de decisões.
+Ao longo do desenvolvimento, demonstrou-se como a transição de uma gestão puramente reativa para uma abordagem proativa e orientada a dados pode ser alcançada por meio da integração eficiente entre sistemas corporativos e ferramentas de visualização avançadas. As principais entregas e contribuições deste trabalho contemplam:
 
-Relatórios como este podem ser criados para vários setores da empresa, permitindo o acompanhamento de máquinas, ativos, estoque, fluxos financeiros, entre outros. O custo, se comparado a IA, é bem mais baixo, pois a quantidade de recursos computacionais necessários para a implementação e execução é pequeno, frente ao necessário para os modelos LLM.
+\begin{itemize}
+	\item \textbf{Integração e Automação de Dados via API REST:} Superou-se a limitação de paginação da API do TOPdesk, que retorna blocos de até $10.000$ linhas por requisição, por meio do desenvolvimento de uma função recursiva em Script M (\texttt{FetchData}), garantindo a extração automatizada e íntegra dos registros.
+	\item \textbf{Modelagem e Tratamento Rigoroso (ETL):} A aplicação de rotinas de transformação no Power Query permitiu a limpeza, a padronização de nomenclaturas de departamentos e o saneamento das informações brutas provenientes da plataforma ITSM.
+	\item \textbf{Cálculos Avançados com DAX:} A criação de tabelas dinâmicas baseadas em intervalos de datas (\texttt{DateTable}) e de medidas customizadas (\texttt{OpenTickets}, cálculo de duração em dias e categorização por faixas no histograma) viabilizou a construção de métricas precisas de desempenho.
+	\item \textbf{Painéis Interativos Multiperspectiva:} Foram estruturadas três páginas no Power BI -- abrangendo as seções de Estatísticas Gerais, Chamados Ativos para suporte às reuniões diárias da equipe técnica, e a Evolução dos Chamados Abertos por Departamento --, fornecendo aos gestores uma visão centralizada para a identificação de gargalos e predição de tendências.
+\end{itemize}
 
-Outra vantagem do relatório é a eliminação dos erros que podem ser causados pela alucinação dos modelos, bem como melhor governança sobre os dados utilizados, pois o processamento pode ser realizado \textit{in loco}. Assim, acurácia e privacidade deixam de ser uma preocupação para o usuário e a responsabilidade sobre a informação apresentada passa a ser do analista de dados.
+\subsection{Desafios e Considerações Práticas}
 
-Portanto, é essencial o investimento no processamento dos dados que as empresas geram. Na economia competitiva, a busca pela maximização da produção visando aumento de lucros faz com que, para as empresas, encontrar gargalos nos processos seja essencial para continuarem vivas. Mas é necessário considerar o lado humano dos processos, que muitas vezes não aparece em nenhuma análise, ou relatório.
+Durante a execução do projeto, destacou-se a necessidade de lidar com a paginação de dados via requisições HTTP utilizando programação funcional em Script M, visto que a linguagem não emprega estruturas de repetição imperativas tradicionais (\textit{loops}). Além disso, em cumprimento aos requisitos de privacidade e proteção de dados da Lei Geral de Proteção de Dados (LGPD), procedeu-se ao rigoroso mascaramento e à anonimização de nomes de operadores e detalhes das requisições, assegurando a conformidade legal sem comprometer a utilidade analítica dos relatórios gerenciais.
+
+\subsection{Possíveis Melhorias}
+
+Como perspectivas para a evolução deste trabalho, apontam-se as seguintes direções:
+
+\begin{itemize}
+	\item \textbf{Integração com Modelos Preditivos:} Incorporação de scripts em Python ou R no ecossistema do Power BI para antecipar picos de chamados com base em análise preditiva e séries temporais.
+	\item \textbf{Automação de Alertas de SLA:} Implementação de notificações automatizadas para alertar sobre chamados excedentes ou próximos ao limite de prazo acordado (\textit{Service-Level Agreement}).
+	\item \textbf{Expansão de Fontes de Dados:} Ampliação da cobertura do painel para integrar outras bases de ativos de Tecnologia de Operação (TO) e Infraestrutura, consolidando uma visão unificada de todo o ecossistema tecnológico da organização.
+\end{itemize}
+
+Em suma, o projeto atingiu com êxito os objetivos propostos, aplicando conceitos fundamentais de Ciência da Computação -- como engenharia de dados, requisições web e modelagem relacional -- na resolução de problemas reais de gestão corporativa e suporte à tomada de decisões estratégicas.
