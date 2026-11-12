@@ -11,8 +11,8 @@
 \backcite {Guia_de_ETL}{{19}{\textnormal {\textnormal {\textnormal {2}.1}.1}}{subsection.2.1.1}}
 \backcite {Guia_de_ETL}{{20}{\textnormal {\textnormal {\textnormal {2}.1}.2}}{subsection.2.1.2}}
 \backcite {Guia_de_ETL}{{20}{\textnormal {\textnormal {\textnormal {2}.1}.3}}{subsection.2.1.3}}
-\backcite {TOPdesk_API}{{20}{\textnormal {\textnormal {\textnormal {2}.2}.1}}{subsection.2.2.1}}
 \backcite {REST_API_Definition}{{20}{1}{Hfootnote.1}}
+\backcite {TOPdesk_API}{{21}{\textnormal {\textnormal {\textnormal {2}.2}.1}}{subsection.2.2.1}}
 \backcite {PBI_Sobre}{{21}{\textnormal {\textnormal {\textnormal {2}.2}.2}}{subsection.2.2.2}}
 \backcite {PBI_Fontes_Dados}{{21}{\textnormal {\textnormal {\textnormal {2}.2}.2}}{subsection.2.2.2}}
 \backcite {PBI_M_Referencia}{{21}{\textnormal {\textnormal {\textnormal {2}.2}.2}}{subsection.2.2.2}}
@@ -20,30 +20,30 @@
 \backcite {PBI_Visuais_Customizados}{{21}{\textnormal {\textnormal {\textnormal {2}.2}.2}}{subsection.2.2.2}}
 \backcite {PBI_Gateway_Python_R}{{21}{\textnormal {\textnormal {\textnormal {2}.2}.2}}{subsection.2.2.2}}
 \backcite {PBI_M_Referencia}{{21}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.1}}{subsubsection.2.2.2.1}}
-\backcite {PBI_DAX_Referencia}{{21}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
-\backcite {PBI_DAX_Overview}{{21}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
-\backcite {PBI_RLS}{{21}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
 \backcite {Dataframe_Definition}{{21}{2}{Hfootnote.2}}
 \backcite {Data_Gateway_Def}{{21}{3}{Hfootnote.3}}
-\backcite {TMDL}{{23}{\textnormal {\textnormal {3}.1}}{figure.caption.18}}
-\backcite {WebContents}{{26}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
-\backcite {TOPdesk_Incident_API}{{26}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
-\backcite {NumberToText}{{27}{1}{Item.6}}
-\backcite {PBI_Tipos}{{27}{2}{Item.7}}
-\backcite {TOPdesk_Login}{{27}{2}{Item.7}}
-\backcite {TextCombine}{{27}{2}{Item.7}}
-\backcite {Endpoint_Definition}{{27}{1}{Hfootnote.4}}
-\backcite {PBI_Tipos}{{28}{3}{Item.8}}
-\backcite {JsonDocument}{{28}{4}{Item.9}}
-\backcite {ValueMetadata}{{28}{5}{Item.10}}
-\backcite {Functional_Loop}{{28}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{Item.10}}
-\backcite {DAX_CALENDAR}{{31}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
-\backcite {DAX_ADDCOLUMNS}{{31}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
-\backcite {DAX_CALCULATE}{{31}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
-\backcite {DAX_COUNTROWS}{{31}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
-\backcite {DAX_FILTER}{{32}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
-\backcite {Editar_Interacoes}{{32}{\textnormal {\textnormal {\textnormal {3}.2}.6}}{subsection.3.2.6}}
-\backcite {DAX_IF}{{35}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
-\backcite {DAX_ISBLANK}{{35}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
-\backcite {DAX_DATEDIFF}{{35}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
-\backcite {SLA_Definition}{{37}{\textnormal {\textnormal {\textnormal {3}.3}.3}}{subsection.3.3.3}}
+\backcite {PBI_DAX_Referencia}{{22}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
+\backcite {PBI_DAX_Overview}{{22}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
+\backcite {PBI_RLS}{{22}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
+\backcite {TMDL}{{24}{\textnormal {\textnormal {3}.1}}{figure.caption.18}}
+\backcite {WebContents}{{27}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
+\backcite {TOPdesk_Incident_API}{{27}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
+\backcite {NumberToText}{{28}{1}{Item.6}}
+\backcite {PBI_Tipos}{{28}{2}{Item.7}}
+\backcite {TOPdesk_Login}{{28}{2}{Item.7}}
+\backcite {TextCombine}{{28}{2}{Item.7}}
+\backcite {Endpoint_Definition}{{28}{1}{Hfootnote.4}}
+\backcite {PBI_Tipos}{{29}{3}{Item.8}}
+\backcite {JsonDocument}{{29}{4}{Item.9}}
+\backcite {ValueMetadata}{{29}{5}{Item.10}}
+\backcite {Functional_Loop}{{29}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{Item.10}}
+\backcite {DAX_CALENDAR}{{32}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
+\backcite {DAX_ADDCOLUMNS}{{32}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
+\backcite {DAX_CALCULATE}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
+\backcite {DAX_COUNTROWS}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
+\backcite {DAX_FILTER}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
+\backcite {Editar_Interacoes}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.6}}{subsection.3.2.6}}
+\backcite {DAX_IF}{{36}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
+\backcite {DAX_ISBLANK}{{36}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
+\backcite {DAX_DATEDIFF}{{36}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
+\backcite {SLA_Definition}{{38}{\textnormal {\textnormal {\textnormal {3}.3}.3}}{subsection.3.3.3}}

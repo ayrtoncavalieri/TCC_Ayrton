@@ -1,7 +1,10 @@
 \chapter{Implementação}
 \label{cap:relacionados}
+\textcolor{red}{Modificar o capítulo para que as seções sejam organizadas pelas etapas de tratamento, e não pela ferramenta.}
 
-Nesta seção, será mostrada a aplicação dos conceitos apresentados na seção 2 utilizando a ferramenta Power BI. A lista de tópicos abordados será apresentada conforme ordem descrita a seguir:
+
+Nesta seção é  mostrada a aplicação dos conceitos apresentados na Seção 2 utilizando a ferramenta Power BI. A lista de tópicos abordados será apresentada conforme ordem descrita a seguir:
+\textcolor{red}{(Refazer organização. Não fica bom uma estrutura de tópicos já no início da seção.)}
 \begin{enumerate}
 	\item Explicação detalhada da ferramenta Power BI, apresentando suas interfaces;
 	\item Extração e tratamento de dados utilizando a linguagem Power Query, mostrando funções da linguagem que permitem acessar a base de dados e fazer a limpeza do conteúdo recebido;
@@ -12,7 +15,9 @@ Nesta seção, será mostrada a aplicação dos conceitos apresentados na seçã
 
 \section{Power BI}
 
-A ferramenta que utilizada para este trabalho é o Power BI, esta ferramenta permite a criação dos relatórios e aquisição dos dados que os alimentarão. A seguir, é exibida a imagem da tela da aplicação mostrando um relatório em branco:
+\textcolor{red}{Não tem sentido termos novamente uma subseção chamada Power BI}
+
+A ferramenta utilizada para este trabalho é o Power BI, esta ferramenta permite a criação dos relatórios e aquisição dos dados que os alimentarão. A seguir, é exibida a imagem da tela da aplicação mostrando um relatório em branco:
 \begin{figure}[!ht]
 	\centering
 	\caption{Tela da aplicação Power BI exibindo um relatório em branco.}
@@ -92,27 +97,27 @@ Como apresentado na introdução, o Power BI oferece muitos meios de conexão na
 O TOPdesk retorna os dados da base em páginas com, no máximo, 10.000 linhas, não contemplando toda a base de dados sendo acessada, neste caso, o TOPdesk retornará em seu cabeçalho a resposta 206, e um endereço para o próximo segmento de dados no item \texttt{x-next-page-url}.\cite{TOPdesk_Incident_API} Para reduzir o peso dos parâmetros, utiliza-se o número da página, passado na seção de consulta da URL, para navegar pelos dados. Esse conhecimento resulta na função \texttt{FetchData}, apresentada a seguir:
 
 \begin{lstlisting}
-FetchData = (pageNumber as number, pageSize as number, token as text, accumulated as list) =>
-    let
-        pagePosition = Number.ToText(pageSize * pageNumber),
-	    header = [Authorization = Text.Combine({"Basic ", token})],
-        source = Web.Contents("https://edf.topdesk.net/tas/api/incidents", [Query = [pageStart=pagePosition, pageSize=Number.ToText(pageSize)], Timeout=#duration(0, 0, 2, 0), Headers=header]),
-        json = Json.Document(source),
-        status = Value.Metadata(source)[Response.Status],
-        result = if status = 206 then @FetchData(pageNumber + 1, pageSize, token, accumulated & {json}) else accumulated & {json}
-    in
-        result
+	FetchData = (pageNumber as number, pageSize as number, token as text, accumulated as list) =>
+	let
+	pagePosition = Number.ToText(pageSize * pageNumber),
+	header = [Authorization = Text.Combine({"Basic ", token})],
+	source = Web.Contents("https://edf.topdesk.net/tas/api/incidents", [Query = [pageStart=pagePosition, pageSize=Number.ToText(pageSize)], Timeout=#duration(0, 0, 2, 0), Headers=header]),
+	json = Json.Document(source),
+	status = Value.Metadata(source)[Response.Status],
+	result = if status = 206 then @FetchData(pageNumber + 1, pageSize, token, accumulated & {json}) else accumulated & {json}
+	in
+	result
 \end{lstlisting}
 \begin{center}
-\text{Código da função FetchData}
+	\text{Código da função FetchData}
 \end{center}
 Esta função recebe como parâmetros o número da página, a quantidade de linhas por página, a string com o token de autenticação e uma lista vazia para armazenar o conteúdo das respostas, executando os seguintes passos em ordem:
 \begin{enumerate}
-    \item Calcula a posição da linha que inicia a página, para que a resposta desloque-se pelos dados e comece a entrega da linha requisitada, transformando o resultado numa string utilizando a função \texttt{Number.ToText}\cite{NumberToText};
-    \item Monta o cabeçalho da requisição, gerando um \textit{registro} \cite{PBI_Tipos} que será passado para a função \texttt{Web.Contents} contendo o valor de "\textit{Authorization}", que indica para a página qual é o tipo de autenticação a ser utilizada e o token para autorizar. Neste caso, usa-se autenticação básica, passando um texto contendo a \textit{string} "\texttt{Basic }" concatenada com a \textit{string} de autenticação, que é formada pela concatenação do usuário e senha, codificados em base 64 \cite{TOPdesk_Login}. Em Script M, a concatenação de textos é feita utilizando a função nativa \texttt{Text.Combine}\cite{TextCombine};
-    \item A função \texttt{Web.Contents} é chamada, passando como parâmetros o endereço do \textit{endpoint}\footnote{Segundo a Crowdstrike, um \textit{endpoint} é "...qualquer dispositivo físico que pode ser conectado a uma rede, incluindo computadores, laptops, celulares, tablets e servidores" \cite{Endpoint_Definition}.} da API do TOPdesk, um registro contendo a consulta a ser concatenada na URL, sendo este parâmetro também um registro, contendo os valores \textit{pageStart} e \textit{pageSize} definidos anteriormente na função, o tempo máximo de espera (\textit{timeout}), sendo um parâmetro do tipo duração, e o cabeçalho, sendo este também um registro contendo o valor \textit{Authorization}. Recebe como resposta um texto em formato JSON, o cabeçalho de resposta, com o código HTTP recebido, o conteúdo requisitado, e outros valores não utilizados neste contexto\cite{PBI_Tipos};
-    \item A função \texttt{Json.Document} \cite{JsonDocument}, recebe a string em formato JSON obtida no passo anterior, realiza o \textit{parsing}, retornando um registro com as chaves e valores utilizados;
-    \item Extrai os metadados associados à resposta de \texttt{Web.Contents}, utilizando a função \texttt{Value.Metadata} \cite{ValueMetadata}, obtendo o conteúdo indexado pela chave \texttt{Response.Status}.
+	\item Calcula a posição da linha que inicia a página, para que a resposta desloque-se pelos dados e comece a entrega da linha requisitada, transformando o resultado numa string utilizando a função \texttt{Number.ToText}\cite{NumberToText};
+	\item Monta o cabeçalho da requisição, gerando um \textit{registro} \cite{PBI_Tipos} que será passado para a função \texttt{Web.Contents} contendo o valor de "\textit{Authorization}", que indica para a página qual é o tipo de autenticação a ser utilizada e o token para autorizar. Neste caso, usa-se autenticação básica, passando um texto contendo a \textit{string} "\texttt{Basic }" concatenada com a \textit{string} de autenticação, que é formada pela concatenação do usuário e senha, codificados em base 64 \cite{TOPdesk_Login}. Em Script M, a concatenação de textos é feita utilizando a função nativa \texttt{Text.Combine}\cite{TextCombine};
+	\item A função \texttt{Web.Contents} é chamada, passando como parâmetros o endereço do \textit{endpoint}\footnote{Segundo a Crowdstrike, um \textit{endpoint} é "...qualquer dispositivo físico que pode ser conectado a uma rede, incluindo computadores, laptops, celulares, tablets e servidores" \cite{Endpoint_Definition}.} da API do TOPdesk, um registro contendo a consulta a ser concatenada na URL, sendo este parâmetro também um registro, contendo os valores \textit{pageStart} e \textit{pageSize} definidos anteriormente na função, o tempo máximo de espera (\textit{timeout}), sendo um parâmetro do tipo duração, e o cabeçalho, sendo este também um registro contendo o valor \textit{Authorization}. Recebe como resposta um texto em formato JSON, o cabeçalho de resposta, com o código HTTP recebido, o conteúdo requisitado, e outros valores não utilizados neste contexto\cite{PBI_Tipos};
+	\item A função \texttt{Json.Document} \cite{JsonDocument}, recebe a string em formato JSON obtida no passo anterior, realiza o \textit{parsing}, retornando um registro com as chaves e valores utilizados;
+	\item Extrai os metadados associados à resposta de \texttt{Web.Contents}, utilizando a função \texttt{Value.Metadata} \cite{ValueMetadata}, obtendo o conteúdo indexado pela chave \texttt{Response.Status}.
 \end{enumerate}
 
 A implementação é recursiva, montando uma lista de listas, que na transformação serão concatenadas. Como Script M é uma linguagem funcional, não possui estrutura de loop como nas linguagens imperativas \cite{Functional_Loop}.
@@ -121,20 +126,20 @@ A implementação é recursiva, montando uma lista de listas, que na transforma�
 A segunda etapa é a Transformação, nela realiza-se processamentos nos dados recebidos para que eles fiquem limpos e homogeneizados, permitindo o uso em construção de relatórios. As funções disponíveis no Script M permitem calcular colunas e tabelas, e corrigir erros encontrados no conjunto de dados obtido da plataforma ITSM.
 
 \begin{lstlisting}
-finalResult = List.Combine(FetchData(0, 10000, "chave_acesso", {})),
-#"Converted to Table" = Table.FromList(finalResult, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+	finalResult = List.Combine(FetchData(0, 10000, "chave_acesso", {})),
+	#"Converted to Table" = Table.FromList(finalResult, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
 	...
-#"Expanded caller" = Table.ExpandRecordColumn(#"Expanded Column1", "caller", {"id", "dynamicName", "email", "phoneNumber", "mobileNumber", "branch", "department", "budgetHolder"}, {"caller.id", "caller.dynamicName", "caller.email", "caller.phoneNumber", "caller.mobileNumber", "caller.branch", "caller.department", "caller.budgetHolder"}),
+	#"Expanded caller" = Table.ExpandRecordColumn(#"Expanded Column1", "caller", {"id", "dynamicName", "email", "phoneNumber", "mobileNumber", "branch", "department", "budgetHolder"}, {"caller.id", "caller.dynamicName", "caller.email", "caller.phoneNumber", "caller.mobileNumber", "caller.branch", "caller.department", "caller.budgetHolder"}),
 	...
-#"Corrigindo Química" = Table.ReplaceValue(#"Corrigindo Mecânica1","Quimica","Química",Replacer.ReplaceText,{"caller.department.name"}),
-#"Corrigindo TI" = Table.ReplaceValue(#"Corrigindo Química","Tecnologia da Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
-#"Corrigindo TI1" = Table.ReplaceValue(#"Corrigindo TI","Tecnologia de Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
-#"Corrigindo P&D" = Table.ReplaceValue(#"Corrigindo TI1","P&D","Pesquisa e Desenvolvimento",Replacer.ReplaceText,{"caller.department.name"}),
+	#"Corrigindo Química" = Table.ReplaceValue(#"Corrigindo Mecânica1","Quimica","Química",Replacer.ReplaceText,{"caller.department.name"}),
+	#"Corrigindo TI" = Table.ReplaceValue(#"Corrigindo Química","Tecnologia da Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
+	#"Corrigindo TI1" = Table.ReplaceValue(#"Corrigindo TI","Tecnologia de Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
+	#"Corrigindo P&D" = Table.ReplaceValue(#"Corrigindo TI1","P&D","Pesquisa e Desenvolvimento",Replacer.ReplaceText,{"caller.department.name"}),
 	...
-#"Duplicated Column1" = Table.AddColumn(#"Expanded creator", "requestT", each Text.Middle([request], Text.PositionOf([request], ":") + 1, Text.Length([request]))),
-Custom1 = Table.AddColumn(#"Duplicated Column1", "requestTT", each Text.Middle([requestT], Text.PositionOf([requestT], ":") + 1, Text.Length([requestT]))),
-#"Replaced Value" = Table.ReplaceValue(Custom1,"Descrição detalhada do problema:","",Replacer.ReplaceText,{"requestTT"}),
-#"Removed Columns" = Table.RemoveColumns(#"Replaced Value",{"requestT"})
+	#"Duplicated Column1" = Table.AddColumn(#"Expanded creator", "requestT", each Text.Middle([request], Text.PositionOf([request], ":") + 1, Text.Length([request]))),
+	Custom1 = Table.AddColumn(#"Duplicated Column1", "requestTT", each Text.Middle([requestT], Text.PositionOf([requestT], ":") + 1, Text.Length([requestT]))),
+	#"Replaced Value" = Table.ReplaceValue(Custom1,"Descrição detalhada do problema:","",Replacer.ReplaceText,{"requestTT"}),
+	#"Removed Columns" = Table.RemoveColumns(#"Replaced Value",{"requestT"})
 \end{lstlisting}
 \begin{center}
 	\text{Código da Transformação de Dados}
@@ -170,13 +175,13 @@ Os relacionamentos são criados arrastando-se o campo de uma tabela para cima do
 \subsection{Criação de tabela dinâmica e medida usando DAX}
 Para que se possa fazer o acompanhamento de quantos chamados estão abertos por dia, utiliza-se uma tabela dinâmica, que pode ser modificada a depender dos filtros e opções definidos nos visuais. Primeiro. a tabela é iniciada com o intervalo de datas que os dados disponíveis compreendem utilizando o seguinte código:
 \begin{lstlisting}
-DateTable = 
-ADDCOLUMNS (
+	DateTable = 
+	ADDCOLUMNS (
 	CALENDAR ( MIN(chamados[creationDate]), MAX(chamados[completedDate]) ),
 	"Year", YEAR([Date]),
 	"Month", MONTH([Date]),
 	"Day", DAY([Date])
-)
+	)
 \end{lstlisting}
 \begin{center}
 	\text{Código para inicializar tabela em DAX}
@@ -186,15 +191,15 @@ A função \texttt{CALENDAR} toma como parâmetros as datas inicial e final de u
 
 A seguir, a medida \textit{OpenTickets} é criada, ela calculará a quantidade de chamados que estão abertos em uma data, permitindo a montagem de gráficos de acompanhamento. A listagem abaixo define a medidaL
 \begin{lstlisting}
-OpenTickets = 
-CALCULATE (
-		COUNTROWS(chamados),
-		FILTER (
-			chamados,
-			chamados[creationDate] <= MAX(DateTable[Date]) &&
-			(ISBLANK(chamados[completedDate]) || chamados[completedDate] >= MAX(DateTable[Date]))
-		)
-)
+	OpenTickets = 
+	CALCULATE (
+	COUNTROWS(chamados),
+	FILTER (
+	chamados,
+	chamados[creationDate] <= MAX(DateTable[Date]) &&
+	(ISBLANK(chamados[completedDate]) || chamados[completedDate] >= MAX(DateTable[Date]))
+	)
+	)
 \end{lstlisting}
 \begin{center}
 	\text{Código da medida \textit{OpenTickets}}
@@ -255,7 +260,7 @@ O Power BI possui opção nativa para criar histogramas, porém ela não entrega
 O primeiro código apresentado faz a contagem dos dias em que um chamado está aberto:
 
 \begin{lstlisting}
-totalDurationInDays = IF(ISBLANK(chamados[closedDate]), DATEDIFF(chamados[creationDate], TODAY(),DAY), DATEDIFF(chamados[creationDate], chamados[closedDate], DAY))
+	totalDurationInDays = IF(ISBLANK(chamados[closedDate]), DATEDIFF(chamados[creationDate], TODAY(),DAY), DATEDIFF(chamados[creationDate], chamados[closedDate], DAY))
 \end{lstlisting}
 \begin{center}
 	\text{Código DAX para o cálculo de quantos dias um chamado está em aberto.}
@@ -268,33 +273,33 @@ O segundo código faz a classificação da duração dos chamados nas cestas def
 
 \begin{lstlisting}
 	durationBin = IF(chamados[totalDurationInDays] >= 0 && chamados[totalDurationInDays] <= 5, "00 - 05", 
-		IF(chamados[totalDurationInDays] > 5 && chamados[totalDurationInDays] <= 10, "06 - 10",
-			IF(chamados[totalDurationInDays] > 10 && chamados[totalDurationInDays] <= 20, "11 - 20",
-				IF(chamados[totalDurationInDays] > 20 && chamados[totalDurationInDays] <= 30, "21 - 30",
-				"30+"
-				) 
-			)
-		)
+	IF(chamados[totalDurationInDays] > 5 && chamados[totalDurationInDays] <= 10, "06 - 10",
+	IF(chamados[totalDurationInDays] > 10 && chamados[totalDurationInDays] <= 20, "11 - 20",
+	IF(chamados[totalDurationInDays] > 20 && chamados[totalDurationInDays] <= 30, "21 - 30",
+	"30+"
+	) 
+	)
+	)
 	)
 \end{lstlisting}
 \begin{center}
 	\text{Código DAX para a classificação das cestas do histograma.}
 \end{center}
 
- Ele cria uma coluna chamada \texttt{durationBin}, que contém os textos informando a qual intervalo cada chamado se encaixa. O código consiste em \texttt{IF}s aninhados que testam o resultado do cálculo da coluna \texttt{totalDurationInDays} e salvam o texto correspondente.
- 
- Com essa informação, é possível utilizar o visual de gráfico em barra para montar o histograma, passando para o parâmetro do eixo x a coluna com as cestas, e para o eixo y a coluna com o identificador do chamado, que a visualização utiliza para fazer a contagem.
- 
- O segundo elemento desta tela é uma tabela onde se apresenta os detalhes dos chamados. Nela, os funcionários da TI podem ver a requisição, data de criação, identificador do chamado, e o estado em que se encontra. Ela possui filtros aplicados para exibir chamados com mais de 3 dias abertos e em estados de atendimento definidos pela gestão.
- 
- \begin{figure}[!ht]
- 	\centering
- 	\caption{Filtros aplicados à tabela. As opções de modificação dos parâmetros de filtro estão à direita}
- 	\includegraphics[width=1\linewidth]{figuras/Filtros_Tabela.png}
- 	\label{fig:placeholder Figura 13}
- \end{figure}
- 
- O terceiro elemento de interesse são os 3 cartões que apresentam a quantidade de chamados, a média e a mediana do tempo. Para que a média e mediana não mostrassem a performance dos funcionários durante a reunião, as interações partindo do filtro de operadores é desligada, exceto em uma versão deste relatório disponibilizado exclusivamente para a gestão. Sabendo a média e a mediana é possível inferir se há chamados que estão abertos há muito tempo e que podem precisar de priorização. 
+Ele cria uma coluna chamada \texttt{durationBin}, que contém os textos informando a qual intervalo cada chamado se encaixa. O código consiste em \texttt{IF}s aninhados que testam o resultado do cálculo da coluna \texttt{totalDurationInDays} e salvam o texto correspondente.
+
+Com essa informação, é possível utilizar o visual de gráfico em barra para montar o histograma, passando para o parâmetro do eixo x a coluna com as cestas, e para o eixo y a coluna com o identificador do chamado, que a visualização utiliza para fazer a contagem.
+
+O segundo elemento desta tela é uma tabela onde se apresenta os detalhes dos chamados. Nela, os funcionários da TI podem ver a requisição, data de criação, identificador do chamado, e o estado em que se encontra. Ela possui filtros aplicados para exibir chamados com mais de 3 dias abertos e em estados de atendimento definidos pela gestão.
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Filtros aplicados à tabela. As opções de modificação dos parâmetros de filtro estão à direita}
+	\includegraphics[width=1\linewidth]{figuras/Filtros_Tabela.png}
+	\label{fig:placeholder Figura 13}
+\end{figure}
+
+O terceiro elemento de interesse são os 3 cartões que apresentam a quantidade de chamados, a média e a mediana do tempo. Para que a média e mediana não mostrassem a performance dos funcionários durante a reunião, as interações partindo do filtro de operadores é desligada, exceto em uma versão deste relatório disponibilizado exclusivamente para a gestão. Sabendo a média e a mediana é possível inferir se há chamados que estão abertos há muito tempo e que podem precisar de priorização. 
 
 Por fim, esta página conta com 3 filtros, sendo de operador, de intervalo de data, e de subdepartamento. Com eles os funcionários da TI conseguem acompanhar melhor os chamados, já que permitem um controle fino sobre as informações que são exibidas no gráfico, na tabela e nos cartões.
 
@@ -302,7 +307,7 @@ Por fim, esta página conta com 3 filtros, sendo de operador, de intervalo de da
 
 A última página deste relatório permite o acompanhamento da quantidade de chamados abertos por dia, com separação por departamento. Com ela, o gestor pode verificar tendências de aumento, ou diminuição, na quantidade de chamados e auxilia na tomada de decisões estratégicas do departamento, bem como em negociações sobre SLA (Service-Level Agreement). Segundo a IBM, é "... um contrato entre um provedor de serviço e um cliente que define o serviço a ser fornecido e o nível de performance esperado" \cite{SLA_Definition}. Uma imagem desta tela será exibida a seguir:
 
- \begin{figure}[!ht]
+\begin{figure}[!ht]
 	\centering
 	\caption{Tela de Evolução dos Chamados Abertos por Departamento}
 	\includegraphics[width=1\linewidth]{figuras/Evolucao_Chamados_Abertos_Departamento.png}

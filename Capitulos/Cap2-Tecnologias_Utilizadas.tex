@@ -1,42 +1,51 @@
 \chapter{Metodologias e Tecnologias Utilizadas}
 \label{cap:relacionados}
 
-Na área de Análise de Dados, conhecimentos de bancos de dados (como o SQL), estruturas de dados, lógica de programação, \textit{User Experience} (UX), requisições REST e estatística são aprofundados durante o estágio, sendo necessários para a futura atuação profissional. Também são utilizados conhecimentos de visualização de dados que melhoram entrega dos resultados esperados pela área cliente, junto à rotina ETL, usada para tratar os dados provenientes da fonte, explicada ao longo da seção. 
+Na área de Análise de Dados, conhecimentos de bancos de dados (como o SQL), estruturas de dados, lógica de programação, \textit{User Experience} (UX), requisições REST e estatística são aprofundados durante o estágio, sendo necessários para a futura atuação profissional. Também são utilizados conhecimentos de visualização de dados que melhoram a entrega dos resultados esperados pela área cliente, junto à rotina ETL, usada para tratar os dados provenientes da fonte, explicada ao longo da seção. 
 
-As ferramentas empregadas durante o estágio são o TOPdesk, sistema de ITSM utilizado pela organização, de onde proverão os dados utilizados, e o PowerBI, uma aplicação da Microsoft especializada em tratamento e visualização de dados. Detalhes sobre as ferramentas e onde são empregadas serão apresentados ao longo das seções.
+As ferramentas empregadas durante o estágio foram o TOPdesk, que é um sistema de ITSM utilizado pela organização de onde proveem os dados utilizados, e o PowerBI, uma aplicação da Microsoft especializada em tratamento e visualização de dados. Detalhes sobre as ferramentas e onde são empregadas serão apresentados ao longo das seções.
+
+\textcolor{red}{Aqui precisa ter uma introdução às subseções que virão (Tratamento de dados e Tecnologias empregadas), ou seja, à organização da Seção 3. Então, a última frase do parágrafo acima deve ser transformada. Os detalhes dessas ferramentas estão nesta Seção mesmo. }
 
 \section{Tratamento de dados}
 
 
-O tratamento de dados é um passo importante para sua disponibilização. É com ele que o saneamento dos dados entregues por uma fonte é realizado. Nesta etapa, ocorrem a correção de erros, a execução de cálculos prévios possivelmente úteis a uma análise futura e a filtragem dos dados que não interessam, dentre outras funções utilizadas para entregar a informação requisitada. Para isso, são utilizados dois \textit{pipelines}: o ETL e o ELT,  detalhados a seguir. Ambas as rotinas permitem a consolidação de fontes de dados de diferentes origens.
+O tratamento de dados é um passo importante para sua clara disponibilização. É com ele que o saneamento dos dados entregues por uma fonte é realizado. Nesta etapa, ocorrem a correção de erros, a execução de cálculos prévios \textcolor{red}{(esses cálculos já não seriam uma etapa posterior ao tratamento?)} possivelmente úteis a uma análise futura e a filtragem dos dados que não interessam, dentre outras funções utilizadas para entregar a informação requisitada. Para isso, são  utilizados \textcolor{red}{(não seria mais correto afirmar que ``podem ser utilizados''?)} dois \textit{pipelines}: o ETL e o ELT,  detalhados a seguir. Ambas as rotinas permitem a consolidação de fontes de dados de diferentes origens.
 
 
 \subsection{Pipeline ETL}
 
 
 \label{subsec:ETL_Pipeline}
-A rotina ETL realiza a \textit{Extração, Transformação e Carregamento} dos dados de uma base fornecida. Inicialmente, os dados são extraídos da(s) origem(ns), permitindo que  sejam disponibilizados para um motor de transformação, que aplicará operações como a filtragem de dados indesejados, a criação de colunas calculadas a serem utilizadas  \textit{a posteriori}, além de correções e validações. Por fim, os dados são carregados na base de dados de destino.
-Geralmente, as três fases podem ser executadas em paralelo, acelerando a disponibilização dos dados. Porém, este paralelismo deve ser executado observando-se a quantidade de recursos computacionais disponíveis e a natureza do que está sendo carregado, a fim de não causar condições de corrida que podem ``sujar'' o resultado. \cite{Guia_de_ETL}
+A rotina ETL realiza a \textit{Extração, Transformação e Carregamento} dos dados de uma base fornecida. Inicialmente, os dados são extraídos da(s) origem(ns), permitindo que  sejam disponibilizados para um motor de transformação, que aplicará operações como a filtragem de dados indesejados e a criação de colunas calculadas a serem utilizadas  \textit{a posteriori}, além de correções e validações. Por fim, os dados são carregados na base de dados de destino.
+Geralmente, as três fases da ETL podem ser executadas em paralelo, acelerando a disponibilização dos dados. Porém, esse paralelismo deve ser executado observando-se a quantidade de recursos computacionais disponíveis e a natureza do que está sendo carregado, a fim de não causar condições de corrida que podem ``sujar'' o resultado. \cite{Guia_de_ETL}
+
 
 \subsection{Pipeline ELT}
-Na rotina ELT, o carregamento e a transformação são feitos de forma invertida. Com isso, rotinas de tratamento podem ser empregadas sobre o conjunto de dados já carregado no destino, removendo o motor de transformação do \textit{pipeline} e entregando a responsabilidade das transformações para o destino. Nesse caso, o destino precisa ter a capacidade computacional necessária para realizar as transformações. \cite{Guia_de_ETL}
+
+
+Na rotina ELT, o carregamento e a transformação dos dados são feitos de forma invertida. Com isso, rotinas de tratamento podem ser empregadas sobre o conjunto de dados já carregado no destino, removendo o motor de transformação do \textit{pipeline} e entregando a responsabilidade das transformações para o destino. Nesse caso, o destino precisa ter a capacidade computacional necessária para realizar as transformações. \cite{Guia_de_ETL}
 
 
 \subsection{ELT vs. ETL}
 
 
+\textit{Pipelines} são empregados em diferentes cenários  de processamento de dados. Assim, é necessário ter uma ponderação antes de sua implementação.
 
-Os pipelines são empregados para cenários diferentes de processamento de dados; sendo assim, é necessário ter uma ponderação antes da implementação.
+O ELT é recomendável para ambientes que possuem uma base de dados de destino com armazenamento e processamento escalonáveis, onde as rotinas podem  aproveitar os recursos disponíveis. Também recomenda-se que o ELT seja utilizado nos casos em que a base de dados original deva ser preservada para realizar análises exploratórias ou novas transformações no futuro.
 
-O ELT é recomendável para ambientes que possuem uma base de dados de destino com armazenamento e processamento escalonáveis, onde as rotinas podem se aproveitar dos recursos disponíveis. Também recomenda-se que o ELT seja utilizado nos casos em que a base de dados original deva ser preservada para realizar novas transformações no futuro ou análise exploratória.
+Já o  ETL é recomendável quando a base de destino tem recursos limitados para a execução das transformações, que podem ser feitas com recurso computacional à parte. Também pode ser usado caso se queira aplicar regras de negócio complexas, ou quando se faz necessária a auditoria ou a aplicação de regulamentações aos dados antes de serem carregados. \cite{Guia_de_ETL}
 
-Já o  ETL é recomendável quando a base de destino tem recursos limitados para a execução das transformações, podendo ser feitas com recurso computacional à parte. Também pode ser usado caso se queira aplicar regras de negócio complexas, ou quando se faz necessária a auditoria ou a aplicação de regulamentações aos dados antes de serem carregados. \cite{Guia_de_ETL}
 
 \section{Tecnologias empregadas}
-Neste trabalho, foram empregadas duas ferramentas. A primeira é o sistema ITSM utilizado pela companhia, o TOPdesk, que mantém os dados de chamados que serão utilizados. A segunda ferramenta é o Power BI, plataforma da Microsoft que permite a aquisição de inteligência para a tomada de decisões pelos gestores das áreas. 
+
+
+Neste trabalho, foram empregadas duas ferramentas. A primeira é o sistema ITSM utilizado pela companhia, chamado TOPdesk, que mantém os dados de chamados que serão utilizados. A segunda ferramenta é o Power BI -- plataforma da Microsoft que permite a aquisição de inteligência para a tomada de decisões pelos gestores das áreas. 
 
 
 \subsection{TOPdesk}
+
+
 O TOPdesk é uma plataforma que fornece serviços de apoio e gerência com foco nos profissionais de TI, RH e finanças, como gestão de ativos e ITSM, além de uma base de conhecimento que serve como uma enciclopédia, permitindo um acesso estruturado aos manuais, referências e procedimentos que foram submetidos. 
 
 
@@ -47,14 +56,13 @@ Essa plataforma fornece uma API REST\footnote{Uma API REST é ``uma Interface de
 \subsection{Power BI}
 
 
-
 Segundo a Microsoft, 
 \begin{quoting}[rightmargin=0cm,leftmargin=4cm]  \small
 	O Power BI é a plataforma de análise de negócios da Microsoft que ajuda você a transformar dados em \textit{insights} acionáveis. Seja você um usuário de negócios, criador de relatórios ou desenvolvedor, o Power BI oferece ferramentas e serviços integrados para se conectar, visualizar e compartilhar dados em toda a sua organização. \cite{PBI_Sobre}
 \end{quoting}
 
 
-Portanto, o Power BI é uma ferramenta proprietária da Microsoft, voltada à análise de dados para negócios, que permite o tratamento e a visualização de dados de diversas fontes, como bancos de dados, arquivos JSON ou XML, \textit{dataframes}\footnote{Segundo a Databricks, um \textit{dataframe} é ``...uma estrutura de dados que organiza os dados em uma tabela bidimensional de linhas e colunas, como uma planilha'' \cite{Dataframe_Definition}.} processados por Python e R e dados hospedados na \textit{Web}, por exemplo. Entre as fontes de dados hospedados, destacam-se: o fluxo de dados hospedados no serviço de PBI na nuvem da Microsoft, os documentos hospedados no serviço de SharePoint (também da Microsoft) e os documentos disponibilizados por requisições REST  \cite{PBI_Fontes_Dados}.
+Portanto, o Power BI é uma ferramenta proprietária da Microsoft, voltada à análise de dados para negócios, que permite o tratamento e a visualização de dados de diversas fontes, como bancos de dados, arquivos JSON ou XML, \textit{dataframes}\footnote{Segundo a Databricks, um \textit{dataframe} é ``...uma estrutura de dados que organiza os dados em uma tabela bidimensional de linhas e colunas, como uma planilha.'' \cite{Dataframe_Definition}.} processados por Python e R e dados hospedados na \textit{Web}, por exemplo. Entre as fontes de dados hospedados, destacam-se: o fluxo de dados hospedados no serviço de PBI na nuvem da Microsoft, os documentos hospedados no serviço de SharePoint (também da Microsoft) e os documentos disponibilizados por requisições REST  \cite{PBI_Fontes_Dados}.
 
 
 A ferramenta disponibiliza duas linguagens para processamento de dados: a Power Query (ou Script M) \cite{PBI_M_Referencia} e a DAX \cite{PBI_DAX_Referencia}, que atuam em momentos diferentes na confecção dos relatórios. Além disso, ela também suporta a criação de visuais personalizados, utilizando JavaScript e R, e o processamento de dados, utilizando Python e R  \cite{PBI_Visuais_Customizados}.
@@ -65,7 +73,9 @@ Graças às ferramentas que o Power BI disponibiliza, é possível desenvolver r
 
 
 \subsubsection{Script M}
-Uma das linguagens disponibilizadas pela plataforma é o Script M. Seu paradigma é funcional, sensível à caixa e semelhante ao F\# \cite{PBI_M_Referencia}. Ela descreve as etapas de transformação e carregamento dos dados. Nesse papel, ela é responsável pela realização das transformações conforme explicadas na Subseção \ref{subsec:ETL_Pipeline}. 
+
+
+Uma das linguagens disponibilizadas pela plataforma é o Script M. Seu paradigma é funcional, sensível à caixa e semelhante ao F\# \cite{PBI_M_Referencia}. Ela descreve as etapas de transformação e carregamento dos dados. Nesse papel, ela é responsável pela realização das transformações explicadas na Subseção \ref{subsec:ETL_Pipeline}. 
 
 
 \subsubsection{DAX}
