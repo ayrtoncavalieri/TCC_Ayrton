@@ -25,25 +25,22 @@
 \backcite {PBI_DAX_Referencia}{{22}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
 \backcite {PBI_DAX_Overview}{{22}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
 \backcite {PBI_RLS}{{22}{\textnormal {\textnormal {\textnormal {\textnormal {2}.2}.2}.2}}{subsubsection.2.2.2.2}}
-\backcite {TMDL}{{24}{\textnormal {\textnormal {3}.1}}{figure.caption.18}}
-\backcite {WebContents}{{27}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
-\backcite {TOPdesk_Incident_API}{{27}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{subsection.3.2.1}}
-\backcite {NumberToText}{{28}{1}{Item.6}}
-\backcite {PBI_Tipos}{{28}{2}{Item.7}}
-\backcite {TOPdesk_Login}{{28}{2}{Item.7}}
-\backcite {TextCombine}{{28}{2}{Item.7}}
+\backcite {WebContents}{{27}{\textnormal {\textnormal {3}.2}}{section.3.2}}
+\backcite {TOPdesk_Incident_API}{{27}{\textnormal {\textnormal {3}.2}}{section.3.2}}
+\backcite {NumberToText}{{28}{\textnormal {\textnormal {3}.2}}{lstnumber.-1.25}}
+\backcite {TOPdesk_Login}{{28}{\textnormal {\textnormal {3}.2}}{lstnumber.-1.25}}
+\backcite {TextCombine}{{28}{\textnormal {\textnormal {3}.2}}{lstnumber.-1.25}}
+\backcite {JsonDocument}{{28}{\textnormal {\textnormal {3}.2}}{lstnumber.-1.25}}
+\backcite {ValueMetadata}{{28}{\textnormal {\textnormal {3}.2}}{lstnumber.-1.25}}
+\backcite {Functional_Loop}{{28}{\textnormal {\textnormal {3}.2}}{lstnumber.-1.25}}
 \backcite {Endpoint_Definition}{{28}{1}{Hfootnote.4}}
-\backcite {PBI_Tipos}{{29}{3}{Item.8}}
-\backcite {JsonDocument}{{29}{4}{Item.9}}
-\backcite {ValueMetadata}{{29}{5}{Item.10}}
-\backcite {Functional_Loop}{{29}{\textnormal {\textnormal {\textnormal {3}.2}.1}}{Item.10}}
-\backcite {DAX_CALENDAR}{{32}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
-\backcite {DAX_ADDCOLUMNS}{{32}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-3.7}}
-\backcite {DAX_CALCULATE}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
-\backcite {DAX_COUNTROWS}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
-\backcite {DAX_FILTER}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.5}}{lstnumber.-4.9}}
-\backcite {Editar_Interacoes}{{33}{\textnormal {\textnormal {\textnormal {3}.2}.6}}{subsection.3.2.6}}
-\backcite {DAX_IF}{{36}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
-\backcite {DAX_ISBLANK}{{36}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
-\backcite {DAX_DATEDIFF}{{36}{\textnormal {\textnormal {\textnormal {3}.3}.2}}{lstnumber.-5.1}}
-\backcite {SLA_Definition}{{38}{\textnormal {\textnormal {\textnormal {3}.3}.3}}{subsection.3.3.3}}
+\backcite {DAX_CALENDAR}{{36}{\textnormal {\textnormal {\textnormal {3}.6}.1}}{lstnumber.-6.10}}
+\backcite {DAX_ADDCOLUMNS}{{36}{\textnormal {\textnormal {\textnormal {3}.6}.1}}{lstnumber.-6.10}}
+\backcite {DAX_CALCULATE}{{36}{\textnormal {\textnormal {\textnormal {3}.6}.2}}{lstnumber.-7.12}}
+\backcite {DAX_COUNTROWS}{{36}{\textnormal {\textnormal {\textnormal {3}.6}.2}}{lstnumber.-7.12}}
+\backcite {DAX_FILTER}{{36}{\textnormal {\textnormal {\textnormal {3}.6}.2}}{lstnumber.-7.12}}
+\backcite {DAX_IF}{{37}{\textnormal {\textnormal {\textnormal {3}.6}.3}}{lstnumber.-8.6}}
+\backcite {DAX_ISBLANK}{{37}{\textnormal {\textnormal {\textnormal {3}.6}.3}}{lstnumber.-8.6}}
+\backcite {DAX_DATEDIFF}{{37}{\textnormal {\textnormal {\textnormal {3}.6}.3}}{lstnumber.-8.6}}
+\backcite {Editar_Interacoes}{{38}{\textnormal {\textnormal {3}.7}}{section.3.7}}
+\backcite {SLA_Definition}{{41}{\textnormal {\textnormal {\textnormal {3}.7}.3}}{subsection.3.7.3}}

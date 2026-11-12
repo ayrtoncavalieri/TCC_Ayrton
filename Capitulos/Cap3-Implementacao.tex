@@ -1,319 +1,484 @@
 \chapter{Implementação}
-\label{cap:relacionados}
-\textcolor{red}{Modificar o capítulo para que as seções sejam organizadas pelas etapas de tratamento, e não pela ferramenta.}
+\label{cap:implementacao}
 
+Este capítulo apresenta a implementação do processo de análise de dados aplicado ao acompanhamento dos chamados de Tecnologia da Informação (TI) registrados no TOPdesk. A organização do conteúdo acompanha as etapas necessárias para transformar os registros operacionais em informações úteis à gestão: extração dos dados, transformação, carregamento, modelagem, elaboração de cálculos analíticos, construção das visualizações e disponibilização do relatório.
 
-Nesta seção é  mostrada a aplicação dos conceitos apresentados na Seção 2 utilizando a ferramenta Power BI. A lista de tópicos abordados será apresentada conforme ordem descrita a seguir:
-\textcolor{red}{(Refazer organização. Não fica bom uma estrutura de tópicos já no início da seção.)}
-\begin{enumerate}
-	\item Explicação detalhada da ferramenta Power BI, apresentando suas interfaces;
-	\item Extração e tratamento de dados utilizando a linguagem Power Query, mostrando funções da linguagem que permitem acessar a base de dados e fazer a limpeza do conteúdo recebido;
-	\item Confecção de relacionamentos entre as tabelas, permitindo que haja filtragem cruzada;
-	\item Utilização do DAX para a criação de tabela dinâmica, que permite alimentar visualizações com dados que podem ser afetados pelos filtros e seleções dos visuais do relatório
-	\item Montagem do relatório, quais escolhas de visualizações foram tomadas, considerando a mensagem que o relatório pretende entregar.
-\end{enumerate}
+A implementação utiliza o Power BI como ambiente de integração e análise. Conforme apresentado no Capítulo~\ref{cap:relacionados}, a plataforma oferece recursos de conexão a fontes externas, transformação por meio do Power Query (Script M), modelagem dos dados e criação de medidas com DAX. O TOPdesk, por sua vez, é a fonte dos registros de chamados e disponibiliza uma API REST para consulta. Assim, a solução adota um fluxo ETL (\textit{Extract, Transform and Load}): os dados são extraídos da API, tratados no Power Query e, por fim, carregados no modelo interno do Power BI.
 
-\section{Power BI}
+\section{Preparação do ambiente de trabalho}
 
-\textcolor{red}{Não tem sentido termos novamente uma subseção chamada Power BI}
+O desenvolvimento do relatório é realizado no Power BI Desktop. A interface principal reúne os recursos utilizados ao longo da implementação: a faixa superior contém os comandos de obtenção e transformação de dados, modelagem e inserção de elementos visuais; os painéis laterais disponibilizam os campos das tabelas, as opções de visualização e os filtros; e a área central é destinada à composição das páginas do relatório. A Figura~\ref{fig:implementacao-relatorio-vazio} apresenta a aplicação antes da inclusão dos dados e dos visuais.
 
-A ferramenta utilizada para este trabalho é o Power BI, esta ferramenta permite a criação dos relatórios e aquisição dos dados que os alimentarão. A seguir, é exibida a imagem da tela da aplicação mostrando um relatório em branco:
 \begin{figure}[!ht]
 	\centering
 	\caption{Tela da aplicação Power BI exibindo um relatório em branco.}
 	\includegraphics[width=1\linewidth]{figuras/Relatorio_em_Branco.png}
-	\label{fig:placeholder Figura 2}
+	\label{fig:implementacao-relatorio-vazio}
 \end{figure}
 
-Nela vê-se os principais elementos da interface que serão utilizados durante a montagem do relatório, sendo eles:
-\begin{itemize}
-	\item No canto superior encontra-se a barra principal da aplicação, dividida em abas, ela direciona o usuário para as funcionalidades de carregamento e transformação de dados e fornece ferramentas para a inserção de elementos visuais e de automação fornecidos pela Power Platform, da Microsoft. Também dá acesso a ferramentas de modelagem, que permitem a criação de medidas, colunas e tabelas calculadas, controle de temas, dando ao usuário a possibilidade de padronizar palhetas de cor, e depuração e otimização de performance do relatório;
-	\item Na direita, dividida em seções, ficam as opções de dados, que disponibilizam as tabelas e suas colunas para serem usadas no visual, as visualizações, onde se encontra as opções de visuais disponíveis, além da loja para adquirir visuais e opções de personalização e configuração dos visuais em uso, e os filtros, que podem ser aplicados em vários níveis, desde um elemento particular do relatório, passando pela página e, por fim, para todo o relatório;
-	\item Na esquerda fica a seleção de páginas de desenvolvimento, ela direciona o usuário para a área de confecção dos visuais, visualização dos dados das tabelas, montagem dos relacionamentos, e editores DAX e TMDL, o primeiro para a criação de medidas e cálculos e o segundo para escrever definições de modelo usando a Tabular Model Definition Language. A TMDL, segundo a Microsoft, é "...uma sintaxe de definição de modelo de objeto para modelos de dados tabulares...", e não será utilizada neste relatório \cite{TMDL};
-	\item Em baixo ficam as opções de páginas, podendo criar, excluir e renomear. Também fica a opção de trocar para o modo de relatório de \textit{desktop} e de dispositivo móvel, permitindo ao desenvolvedor a criação de relatórios que possam ser exibidos em diversas telas.
-\end{itemize}
+Para iniciar a preparação dos dados, utiliza-se o comando \textit{Transformar dados}, disponível na faixa superior da aplicação, conforme a Figura~\ref{fig:implementacao-barra-superior}. Esse comando abre o Editor do Power Query, ambiente no qual são criadas e organizadas as consultas. A Figura~\ref{fig:implementacao-editor-vazio} apresenta a tela inicial desse editor, que contém os comandos de transformação, a lista de consultas e o painel de configurações, no qual são exibidas as etapas aplicadas a cada consulta.
 
-Para iniciar a rotina ETL existem vários caminhos possíveis, o caminho utilizado passa pela tela de transformação de dados, que é acessada pelo menu superior conforme figura abaixo:
 \begin{figure}[!ht]
 	\centering
-	\caption{Localização da opção Transformar Dados.}
+	\caption{Localização da opção Transformar Dados na faixa superior do Power BI.}
 	\includegraphics[width=1\linewidth]{figuras/Barra_Superior.png}
-	\label{fig:placeholder Figura 3}
+	\label{fig:implementacao-barra-superior}
 \end{figure}
 
-O que abrirá esta tela:
 \begin{figure}[!ht]
 	\centering
-	\caption{Tela da opção Transformar Dados.}
+	\caption{Editor do Power Query sem consultas carregadas.}
 	\includegraphics[width=1\linewidth]{figuras/Tela_Transformacao_Dados_vazio.png}
-	\label{fig:placeholder Figura 4}
+	\label{fig:implementacao-editor-vazio}
 \end{figure}
 
-Nesta tela a divisão dos elementos seguem a mesma lógica da tela de desenvolvimento. Os elementos principais são:
-\begin{itemize}
-	\item No canto superior, ficam as ferramentas de carregamento e transformação de dados, divididas em abas;
-	\item No canto direito, ficam as configurações de consulta, onde são listados os passos executados, permite acesso às configurações de atualização, possibilitando ao usuário definir uma tabela estática (cujo os valores são constantes), e a caixa de texto que permite renomear uma consulta;
-	\item No canto esquerdo, fica a lista com as consultas que foram feitas.
-\end{itemize} 
+Neste trabalho, a consulta foi criada a partir da opção de consulta em branco, acessível pelo menu de seleção de fontes, ilustrado na Figura~\ref{fig:implementacao-fonte}. A edição do código foi realizada no Editor Avançado, acessível pela faixa superior do Power Query. As Figuras~\ref{fig:implementacao-editor-acesso} e~\ref{fig:implementacao-editor} mostram, respectivamente, o acesso a esse recurso e a janela de edição de uma consulta nova.
 
-\section{ETL - \textit{Extract, Transform \& Load}}
-
-A rotina ETL é responsável por processar os dados que alimentarão o relatório sendo confeccionado. Ao finalizar esta rotina, os dados estarão ajustados para a montagem dos relacionamentos e das visualizações. Esta rotina realiza todo o processamento na máquina local do usuário, ou no serviço de nuvem da MS, a depender de onde o relatório está hospedado.
-Para este relatório, usa-se a consulta em branco, que pode ser adicionada ao projeto através do seguinte menu:
-\clearpage
 \begin{figure}[!ht]
 	\centering
-	\caption{Opção para adicionar uma consulta em branco.}
+	\caption{Seleção da opção de consulta em branco.}
 	\includegraphics[width=1\linewidth]{figuras/Selecao_Fonte.png}
-	\label{fig:placeholder Figura 5}
+	\label{fig:implementacao-fonte}
 \end{figure}
-
-Ao adicionar esta consulta, ela aparece listada na barra à esquerda e pode ser modificada. Neste relatório, o editor avançado foi utilizado para montar a consulta. Ele pode ser acessado pelo canto superior, na aba \textit{Home} conforme figura abaixo:
 
 \begin{figure}[!ht]
 	\centering
-	\caption{Opção para abrir editor avançado.}
+	\caption{Acesso ao Editor Avançado do Power Query.}
 	\includegraphics[width=1\linewidth]{figuras/Editor_Avancado_Acesso.png}
-	\label{fig:placeholder Figura 6}
+	\label{fig:implementacao-editor-acesso}
 \end{figure}
 
-Ao entrar nessa opção, abre-se a janela do editor que permite a digitação das consultas a serem feitas. Em uma nova consulta, a janela inicia-se como na figura abaixo:
-\clearpage
 \begin{figure}[!ht]
 	\centering
-	\caption{Editor avançado com a consulta padrão.}
+	\caption{Editor Avançado com a estrutura inicial de uma consulta.}
 	\includegraphics[width=1\linewidth]{figuras/Editor_Avancado.png}
-	\label{fig:placeholder Figura 7}
+	\label{fig:implementacao-editor}
 \end{figure}
 
-Desse ponto, prossegue-se com a confecção da rotina ETL.
+\clearpage
 
-\subsection{Extrair}
+\section{Extração dos dados}
 
-A Extração é a primeira etapa para obter os dados. Para isso, precisa-se de uma forma de conectar à base de dados e fazer o download dos registros necessários.
+A primeira etapa do processo consiste em obter os registros de chamados mantidos pelo TOPdesk. Como descrito no Capítulo~\ref{cap:relacionados}, a plataforma disponibiliza uma API REST que permite consultar os dados por meio de requisições HTTP. Para realizar a extração no Power BI, foi utilizada a função \texttt{Web.Contents}, do Script M, que permite definir o endereço do recurso, os parâmetros da consulta, o tempo limite de espera e os cabeçalhos da requisição \cite{WebContents}.
 
-Como apresentado na introdução, o Power BI oferece muitos meios de conexão nativos, no caso do TOPdesk, temos uma situação onde um conector atende parcialmente a nossa necessidade, precisando de mais tratamentos para que a rotina seja executada com sucesso. Utiliza-se a função nativa \texttt{Web.Contents}, que permite obter conteúdos de páginas web, configurar cabeçalhos, consultas, chaves de API, tempo de \textit{timeout}, e outros parâmetros retornando uma estrutura contendo a resposta do servidor, o conteúdo recebido e cabeçalhos de resposta \cite{WebContents}.
+A API de incidentes do TOPdesk limita a quantidade de registros retornados em cada resposta a, no máximo, 10.000 linhas. Quando há mais registros disponíveis, a resposta utiliza o código HTTP 206 e informa a existência de uma página seguinte por meio do cabeçalho \texttt{x-next-page-url} \cite{TOPdesk_Incident_API}. Para obter o conjunto completo de chamados, a consulta precisa percorrer as páginas retornadas pelo serviço.
 
-O TOPdesk retorna os dados da base em páginas com, no máximo, 10.000 linhas, não contemplando toda a base de dados sendo acessada, neste caso, o TOPdesk retornará em seu cabeçalho a resposta 206, e um endereço para o próximo segmento de dados no item \texttt{x-next-page-url}.\cite{TOPdesk_Incident_API} Para reduzir o peso dos parâmetros, utiliza-se o número da página, passado na seção de consulta da URL, para navegar pelos dados. Esse conhecimento resulta na função \texttt{FetchData}, apresentada a seguir:
+Neste trabalho, essa paginação foi implementada por meio de uma função recursiva denominada \texttt{FetchData}. Em vez de depender de um conector genérico, a função utiliza \texttt{Web.Contents} com os parâmetros \texttt{pageStart} e \texttt{pageSize}, que definem, respectivamente, a posição inicial e a quantidade de registros solicitados. O código a seguir representa a estrutura utilizada; o valor de autenticação foi substituído por um marcador, não devendo ser preenchido diretamente no texto do relatório.
 
 \begin{lstlisting}
-	FetchData = (pageNumber as number, pageSize as number, token as text, accumulated as list) =>
+	FetchData = (pageNumber as number, pageSize as number,
+	token as text, accumulated as list) =>
 	let
 	pagePosition = Number.ToText(pageSize * pageNumber),
 	header = [Authorization = Text.Combine({"Basic ", token})],
-	source = Web.Contents("https://edf.topdesk.net/tas/api/incidents", [Query = [pageStart=pagePosition, pageSize=Number.ToText(pageSize)], Timeout=#duration(0, 0, 2, 0), Headers=header]),
+	source = Web.Contents(
+	"https://edf.topdesk.net/tas/api/incidents",
+	[
+	Query = [
+	pageStart = pagePosition,
+	pageSize = Number.ToText(pageSize)
+	],
+	Timeout = #duration(0, 0, 2, 0),
+	Headers = header
+	]
+	),
 	json = Json.Document(source),
 	status = Value.Metadata(source)[Response.Status],
-	result = if status = 206 then @FetchData(pageNumber + 1, pageSize, token, accumulated & {json}) else accumulated & {json}
+	result =
+	if status = 206
+	then @FetchData(pageNumber + 1, pageSize, token,
+	accumulated & {json})
+	else accumulated & {json}
 	in
 	result
 \end{lstlisting}
+
 \begin{center}
-	\text{Código da função FetchData}
-\end{center}
-Esta função recebe como parâmetros o número da página, a quantidade de linhas por página, a string com o token de autenticação e uma lista vazia para armazenar o conteúdo das respostas, executando os seguintes passos em ordem:
-\begin{enumerate}
-	\item Calcula a posição da linha que inicia a página, para que a resposta desloque-se pelos dados e comece a entrega da linha requisitada, transformando o resultado numa string utilizando a função \texttt{Number.ToText}\cite{NumberToText};
-	\item Monta o cabeçalho da requisição, gerando um \textit{registro} \cite{PBI_Tipos} que será passado para a função \texttt{Web.Contents} contendo o valor de "\textit{Authorization}", que indica para a página qual é o tipo de autenticação a ser utilizada e o token para autorizar. Neste caso, usa-se autenticação básica, passando um texto contendo a \textit{string} "\texttt{Basic }" concatenada com a \textit{string} de autenticação, que é formada pela concatenação do usuário e senha, codificados em base 64 \cite{TOPdesk_Login}. Em Script M, a concatenação de textos é feita utilizando a função nativa \texttt{Text.Combine}\cite{TextCombine};
-	\item A função \texttt{Web.Contents} é chamada, passando como parâmetros o endereço do \textit{endpoint}\footnote{Segundo a Crowdstrike, um \textit{endpoint} é "...qualquer dispositivo físico que pode ser conectado a uma rede, incluindo computadores, laptops, celulares, tablets e servidores" \cite{Endpoint_Definition}.} da API do TOPdesk, um registro contendo a consulta a ser concatenada na URL, sendo este parâmetro também um registro, contendo os valores \textit{pageStart} e \textit{pageSize} definidos anteriormente na função, o tempo máximo de espera (\textit{timeout}), sendo um parâmetro do tipo duração, e o cabeçalho, sendo este também um registro contendo o valor \textit{Authorization}. Recebe como resposta um texto em formato JSON, o cabeçalho de resposta, com o código HTTP recebido, o conteúdo requisitado, e outros valores não utilizados neste contexto\cite{PBI_Tipos};
-	\item A função \texttt{Json.Document} \cite{JsonDocument}, recebe a string em formato JSON obtida no passo anterior, realiza o \textit{parsing}, retornando um registro com as chaves e valores utilizados;
-	\item Extrai os metadados associados à resposta de \texttt{Web.Contents}, utilizando a função \texttt{Value.Metadata} \cite{ValueMetadata}, obtendo o conteúdo indexado pela chave \texttt{Response.Status}.
-\end{enumerate}
-
-A implementação é recursiva, montando uma lista de listas, que na transformação serão concatenadas. Como Script M é uma linguagem funcional, não possui estrutura de loop como nas linguagens imperativas \cite{Functional_Loop}.
-
-\subsection{Transformar}
-A segunda etapa é a Transformação, nela realiza-se processamentos nos dados recebidos para que eles fiquem limpos e homogeneizados, permitindo o uso em construção de relatórios. As funções disponíveis no Script M permitem calcular colunas e tabelas, e corrigir erros encontrados no conjunto de dados obtido da plataforma ITSM.
-
-\begin{lstlisting}
-	finalResult = List.Combine(FetchData(0, 10000, "chave_acesso", {})),
-	#"Converted to Table" = Table.FromList(finalResult, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-	...
-	#"Expanded caller" = Table.ExpandRecordColumn(#"Expanded Column1", "caller", {"id", "dynamicName", "email", "phoneNumber", "mobileNumber", "branch", "department", "budgetHolder"}, {"caller.id", "caller.dynamicName", "caller.email", "caller.phoneNumber", "caller.mobileNumber", "caller.branch", "caller.department", "caller.budgetHolder"}),
-	...
-	#"Corrigindo Química" = Table.ReplaceValue(#"Corrigindo Mecânica1","Quimica","Química",Replacer.ReplaceText,{"caller.department.name"}),
-	#"Corrigindo TI" = Table.ReplaceValue(#"Corrigindo Química","Tecnologia da Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
-	#"Corrigindo TI1" = Table.ReplaceValue(#"Corrigindo TI","Tecnologia de Informação","TI",Replacer.ReplaceText,{"caller.department.name"}),
-	#"Corrigindo P&D" = Table.ReplaceValue(#"Corrigindo TI1","P&D","Pesquisa e Desenvolvimento",Replacer.ReplaceText,{"caller.department.name"}),
-	...
-	#"Duplicated Column1" = Table.AddColumn(#"Expanded creator", "requestT", each Text.Middle([request], Text.PositionOf([request], ":") + 1, Text.Length([request]))),
-	Custom1 = Table.AddColumn(#"Duplicated Column1", "requestTT", each Text.Middle([requestT], Text.PositionOf([requestT], ":") + 1, Text.Length([requestT]))),
-	#"Replaced Value" = Table.ReplaceValue(Custom1,"Descrição detalhada do problema:","",Replacer.ReplaceText,{"requestTT"}),
-	#"Removed Columns" = Table.RemoveColumns(#"Replaced Value",{"requestT"})
-\end{lstlisting}
-\begin{center}
-	\text{Código da Transformação de Dados}
+	\text{Código da função \texttt{FetchData}.}
 \end{center}
 
-As etapas para a transformação nesta tabela são os seguintes, algumas linhas foram omitidas por serem muito semelhantes:
-\begin{enumerate}
-	\item Combinam-se as listas obtidas pela função \textit{fetchData} utilizando a função \textit{List.Combine}, que recebe como parâmetro uma lista de listas;
-	\item Expande-se a lista resultante pelos registros nela contidos, transformando-os em colunas diretamente tratáveis. A função responsável por isso é a \textit{Table.ExpandRecordColumn}. Ela recebe como parâmetro o nome da coluna que contém os registros, uma lista com quais chaves devem se converter em colunas da tabela, e uma lista com o nome que essas colunas assumirão após a expansão;
-	\item Realiza a correção dos nomes de departamentos que possam estar com mais de uma grafia;
-	\item Cria uma coluna auxiliar para processamento de texto;
-	\item Faz a remoção de texto desnecessário que é resgatado na descrição detalhada do chamado;
-	\item Remove a coluna auxiliar;
-\end{enumerate}
+A função recebe quatro parâmetros: o número da página atual, o tamanho máximo da página, o token de autenticação e uma lista que acumula as respostas já obtidas. Inicialmente, calcula-se a posição do primeiro registro da página por meio da multiplicação entre o número da página e o tamanho solicitado. A função \texttt{Number.ToText} converte esse valor para texto, conforme exigido pelo parâmetro da consulta \cite{NumberToText}.
 
-Após esse processamento, pode-se iniciar o carregamento dos dados clicando no botão "Fechar e Aplicar", a partir desse ponto, o PBI executará as consultas que foram criadas e carregará os dados para o modelo interno da aplicação, permitindo que se monte os visuais.
+Em seguida, é montado o cabeçalho HTTP com a informação de autenticação. No cenário descrito, utiliza-se autenticação básica, cujo valor é formado pelo prefixo \texttt{Basic} e pelo conteúdo de autenticação codificado em Base64, conforme o mecanismo documentado pelo TOPdesk \cite{TOPdesk_Login}. A concatenação é realizada com \texttt{Text.Combine} \cite{TextCombine}. O token foi omitido do código apresentado para não expor credenciais ou informações de acesso.
 
-\subsection{Carregar}
-No carregamento, o PBI executa a consulta que foi escrita nas etapas anteriores, carregando os dados para o modelo interno da plataforma. Ela utiliza os conectores nativos, ou personalizados, que foram empregados e aloca o espaço seguindo o modelo de tabela e os tipos definidos na etapa \textit{Transformar}.
+A chamada a \texttt{Web.Contents} envia a requisição ao \textit{endpoint} \footnote{Segundo a Crowdstrike, um \textit{endpoint} é "...qualquer dispositivo físico que pode ser conectado a uma rede, incluindo computadores, laptops, celulares, tablets e servidores" \cite{Endpoint_Definition}} de incidentes, incluindo os parâmetros de paginação, o tempo limite de dois minutos e o cabeçalho de autenticação. A resposta é convertida de JSON para uma estrutura manipulável pelo Script M por meio de \texttt{Json.Document} \cite{JsonDocument}. Por fim, \texttt{Value.Metadata} permite consultar os metadados da resposta e recuperar o código HTTP associado à requisição \cite{ValueMetadata}.
 
-\subsection{Relacionamentos}
-Para que o PBI possa realizar filtragem cruzada, é necessário explicitar para a ferramenta quais são os relacionamentos entre as tabelas, o que é feito na tela de visão de modelo, sendo a terceira opção no canto esquerdo da tela inicial. Ao abrir esta tela, é exibido quais tabelas estão instanciadas neste relatório e quais os relacionamentos estão criados e ativos, podendo ser empregado em filtragens:
+Quando o código recebido é 206, a função chama a si própria para solicitar a página seguinte, acrescentando a resposta atual à lista acumulada. Quando a API não indica a existência de outra página, a função encerra a recursão e devolve a lista com os resultados obtidos. Essa abordagem é compatível com o paradigma funcional do Script M, no qual a repetição pode ser expressa por chamadas recursivas, em vez de estruturas imperativas tradicionais de laço \cite{Functional_Loop}.
+
+A Figura~\ref{fig:implementacao-nova-query} ilustra a criação da consulta que contém a rotina de extração. Após a execução da consulta, a resposta da API é obtida em formato JSON e fica disponível para as etapas de transformação.
 
 \begin{figure}[!ht]
 	\centering
-	\caption{Tela de visão de modelo.}
-	\includegraphics[width=1\linewidth]{figuras/Tela_Visao_Modelo.png}
-	\label{fig:placeholder Figura 8}
+	\caption{Criação de uma nova consulta no Power Query.}
+	\includegraphics[width=1\linewidth]{figuras/Nova_Query.png}
+	\label{fig:implementacao-nova-query}
 \end{figure}
 
-Os relacionamentos são criados arrastando-se o campo de uma tabela para cima do campo da outra tabela correspondente. Isso abrirá opções que permitem a seleção do direcionamento do filtro, podendo ser bi-direcional, ou única, e também permite a seleção de cardinalidade. Para este trabalho, como são poucas tabelas, somente um relacionamento é necessário.
+\clearpage
 
-\subsection{Criação de tabela dinâmica e medida usando DAX}
-Para que se possa fazer o acompanhamento de quantos chamados estão abertos por dia, utiliza-se uma tabela dinâmica, que pode ser modificada a depender dos filtros e opções definidos nos visuais. Primeiro. a tabela é iniciada com o intervalo de datas que os dados disponíveis compreendem utilizando o seguinte código:
+\section{Transformação e limpeza dos dados}
+
+Após a extração, os registros precisam ser organizados em uma estrutura tabular e tratados para que possam ser utilizados na análise. Essa etapa é realizada com o Power Query, linguagem apresentada no Capítulo~\ref{cap:relacionados}. As operações aplicadas incluem a combinação das páginas obtidas, a conversão dos registros JSON em colunas, a padronização de valores e a preparação de campos textuais.
+
+O primeiro passo consiste em combinar as listas retornadas pela função \texttt{FetchData}. Para isso, utiliza-se \texttt{List.Combine}, que reúne as listas em uma única sequência. Em seguida, \texttt{Table.FromList} converte essa sequência em uma tabela, possibilitando a aplicação das demais operações tabulares.
+
 \begin{lstlisting}
-	DateTable = 
-	ADDCOLUMNS (
-	CALENDAR ( MIN(chamados[creationDate]), MAX(chamados[completedDate]) ),
+	finalResult =
+	List.Combine(FetchData(0, 10000, "TOKEN_DE_ACESSO", {})),
+	
+	#"Converted to Table" =
+	Table.FromList(
+	finalResult,
+	Splitter.SplitByNothing(),
+	null,
+	null,
+	ExtraValues.Error
+	),
+	
+	...
+\end{lstlisting}
+
+\begin{center}
+	\text{Trecho de código para combinação das respostas e conversão em tabela.}
+\end{center}
+
+Os objetos retornados pela API possuem campos que, por sua vez, contêm registros aninhados. Para disponibilizar esses valores como colunas, utiliza-se \texttt{Table.ExpandRecordColumn}. A operação recebe a tabela de origem, o nome da coluna que contém os registros, a lista de campos que devem ser expandidos e os nomes atribuídos às novas colunas. A expansão permite acessar atributos do solicitante, do departamento e de outras entidades relacionadas ao chamado.
+
+\begin{lstlisting}
+	#"Expanded caller" =
+	Table.ExpandRecordColumn(
+	#"Expanded Column1",
+	"caller",
+	{
+		"id", "dynamicName", "email", "phoneNumber",
+		"mobileNumber", "branch", "department",
+		"budgetHolder"
+	},
+	{
+		"caller.id", "caller.dynamicName", "caller.email",
+		"caller.phoneNumber", "caller.mobileNumber",
+		"caller.branch", "caller.department",
+		"caller.budgetHolder"
+	}
+	),
+	
+	...
+\end{lstlisting}
+
+\begin{center}
+	\text{Trecho de código para expansão dos atributos do solicitante.}
+\end{center}
+
+Depois da expansão, são realizadas correções para padronizar os nomes dos departamentos. Como os registros podem apresentar diferenças de grafia, abreviações ou ausência de acentuação, essas variações são substituídas por uma nomenclatura única. A função \texttt{Table.ReplaceValue} permite localizar e substituir valores em uma ou mais colunas, mantendo os demais dados da tabela.
+
+\begin{lstlisting}
+	#"Corrigindo Quimica" =
+	Table.ReplaceValue(
+	#"Etapa anterior", "Quimica", "Química",
+	Replacer.ReplaceText, {"caller.department.name"}
+	),
+	
+	#"Corrigindo TI" =
+	Table.ReplaceValue(
+	#"Corrigindo Quimica",
+	"Tecnologia da Informação", "TI",
+	Replacer.ReplaceText, {"caller.department.name"}
+	),
+	
+	#"Corrigindo TI1" =
+	Table.ReplaceValue(
+	#"Corrigindo TI",
+	"Tecnologia de Informação", "TI",
+	Replacer.ReplaceText, {"caller.department.name"}
+	),
+	
+	#"Corrigindo P&D" =
+	Table.ReplaceValue(
+	#"Corrigindo TI1", "P&D",
+	"Pesquisa e Desenvolvimento",
+	Replacer.ReplaceText, {"caller.department.name"}
+	),
+	
+	...
+\end{lstlisting}
+
+\begin{center}
+	\text{Trecho de código para padronização dos nomes dos departamentos.}
+\end{center}
+
+Também foi necessário tratar o conteúdo textual do campo de requisição. Parte dos registros continha rótulos e trechos de texto que não agregavam informação à análise e dificultavam a leitura das descrições. Para separar o conteúdo relevante, foram utilizadas funções de manipulação de texto, como \texttt{Text.PositionOf}, que localiza a posição de um caractere ou trecho, e \texttt{Text.Middle}, que extrai uma parte do texto a partir de uma posição determinada. Após a extração, \texttt{Table.ReplaceValue} remove o rótulo textual indesejado e \texttt{Table.RemoveColumns} exclui a coluna auxiliar criada durante o processamento.
+
+\begin{lstlisting}
+	#"Duplicated Column1" =
+	Table.AddColumn(
+	#"Expanded creator",
+	"requestT",
+	each Text.Middle(
+	[request],
+	Text.PositionOf([request], ":") + 1,
+	Text.Length([request])
+	)
+	),
+	
+	Custom1 =
+	Table.AddColumn(
+	#"Duplicated Column1",
+	"requestTT",
+	each Text.Middle(
+	[requestT],
+	Text.PositionOf([requestT], ":") + 1,
+	Text.Length([requestT])
+	)
+	),
+	
+	#"Replaced Value" =
+	Table.ReplaceValue(
+	Custom1,
+	"Descrição detalhada do problema:",
+	"",
+	Replacer.ReplaceText,
+	{"requestTT"}
+	),
+	
+	#"Removed Columns" =
+	Table.RemoveColumns(#"Replaced Value", {"requestT"})
+\end{lstlisting}
+
+\begin{center}
+	\text{Trecho de código para tratamento do campo de requisição.}
+\end{center}
+
+As listagens anteriores apresentam apenas os trechos relevantes da consulta; etapas intermediárias foram omitidas para facilitar a compreensão. O conjunto dessas operações transforma a estrutura hierárquica recebida da API em uma tabela com campos acessíveis, valores padronizados e conteúdo textual preparado para a análise.
+
+Além da padronização, o tratamento considera a proteção de dados pessoais. Para a apresentação dos resultados neste trabalho, nomes de solicitantes e operadores, bem como detalhes que pudessem identificar pessoas ou solicitações específicas, foram mascarados ou omitidos. Essa medida reduz a exposição de informações pessoais e está alinhada aos cuidados de privacidade considerados no desenvolvimento do relatório.
+
+A Figura~\ref{fig:implementacao-transformacao} apresenta o Editor do Power Query durante a etapa de transformação, enquanto a Figura~\ref{fig:implementacao-carregamento} ilustra o processo de carregamento após a conclusão das consultas.
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Consulta no Editor do Power Query durante a transformação dos dados.}
+	\includegraphics[width=1\linewidth]{figuras/Tela_Transformacao_Dados.png}
+	\label{fig:implementacao-transformacao}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Indicação do processo de carregamento dos dados no Power BI.}
+	\includegraphics[width=0.45\linewidth]{figuras/Carregamento.png}
+	\label{fig:implementacao-carregamento}
+\end{figure}
+
+\section{Carregamento dos dados}
+
+Concluídas as operações de transformação, os dados são carregados no modelo interno do Power BI por meio do comando \textit{Fechar e Aplicar}, disponível no Editor do Power Query. Nesse momento, a plataforma executa as consultas, aplica as etapas definidas no Script M e instancia as tabelas resultantes no modelo do relatório.
+
+O carregamento utiliza os tipos de dados definidos durante a preparação das consultas e disponibiliza as colunas para a construção de relacionamentos, cálculos e elementos visuais. Dessa forma, a etapa encerra o fluxo ETL descrito no Capítulo~\ref{cap:relacionados}: os registros são extraídos do TOPdesk, transformados no Power Query e carregados no ambiente de análise do Power BI.
+
+\section{Modelagem e relacionamento entre tabelas}
+
+Com os dados carregados, é necessário definir como as tabelas se relacionam. Essa configuração permite que filtros e seleções realizados em uma visualização sejam propagados para outras tabelas e elementos do relatório, de acordo com as relações estabelecidas no modelo.
+
+A configuração é realizada na visão de modelo do Power BI, que apresenta as tabelas carregadas e os relacionamentos existentes. A Figura~\ref{fig:implementacao-modelo} mostra a disposição das tabelas e das relações utilizadas no relatório.
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Visão de modelo do Power BI com as tabelas e seus relacionamentos.}
+	\includegraphics[width=1\linewidth]{figuras/Tela_Visao_Modelo.png}
+	\label{fig:implementacao-modelo}
+\end{figure}
+
+Os relacionamentos podem ser criados arrastando o campo de uma tabela até o campo correspondente de outra tabela ou configurando-os diretamente na interface. Durante a criação, devem ser definidos a cardinalidade e o sentido de propagação dos filtros. A cardinalidade determina como os registros de uma tabela se associam aos registros da outra; já a direção do filtro estabelece em qual sentido a seleção será propagada. Para o conjunto de dados utilizado neste trabalho, a estrutura é simples e requer apenas o relacionamento necessário entre as tabelas envolvidas nas análises.
+
+A modelagem é importante para que as medidas e os filtros utilizados nas páginas do relatório apresentem resultados coerentes. Sem os relacionamentos adequados, uma seleção realizada em um campo poderia não afetar os indicadores que dependem daquela informação.
+
+\section{Cálculos e métricas analíticas com DAX}
+
+Após a preparação e a modelagem dos dados, são definidos cálculos que permitem acompanhar os chamados ao longo do tempo e analisar sua duração. Para isso, utiliza-se DAX (\textit{Data Analysis Expressions}), linguagem apresentada no Capítulo~\ref{cap:relacionados}, que permite criar colunas calculadas, tabelas calculadas e medidas.
+
+\subsection{Tabela de datas}
+
+Para analisar a evolução dos chamados por dia, foi criada uma tabela de datas denominada \texttt{DateTable}. Seu intervalo é determinado pelas datas mínima de criação e máxima de conclusão disponíveis na tabela de chamados. Além da data propriamente dita, são criadas colunas para ano, mês e dia, que permitem agrupar e filtrar os dados em diferentes granularidades.
+
+\begin{lstlisting}
+	DateTable =
+	ADDCOLUMNS(
+	CALENDAR(
+	MIN(chamados[creationDate]),
+	MAX(chamados[completedDate])
+	),
 	"Year", YEAR([Date]),
 	"Month", MONTH([Date]),
 	"Day", DAY([Date])
 	)
 \end{lstlisting}
+
 \begin{center}
-	\text{Código para inicializar tabela em DAX}
+	\text{Código DAX para criação da tabela de datas.}
 \end{center}
 
-A função \texttt{CALENDAR} toma como parâmetros as datas inicial e final de um intervalo \cite{DAX_CALENDAR}. Já a função ADDCOLUMNS utiliza uma tabela, o nome de uma coluna e uma fórmula para cálculo desta coluna. Essas adições de colunas calculadas são feitas em pares, sempre com o nome precedendo a fórmula \cite{DAX_ADDCOLUMNS}. Ao rodar esta expressão, obtêm-se uma tabela que foi nomeada DateTable. As colunas \textit{Year}, \textit{Month} e \textit{Date} permitem a filtragem por eventos que aconteçam em dias, meses e anos individuais, entregando mais uma opção para o visual.
+A função \texttt{CALENDAR} gera uma tabela com uma linha para cada data do intervalo informado \cite{DAX_CALENDAR}. Em seguida, \texttt{ADDCOLUMNS} acrescenta colunas calculadas à tabela resultante \cite{DAX_ADDCOLUMNS}. As colunas \texttt{Year}, \texttt{Month} e \texttt{Day} permitem que os visuais apresentem os resultados por ano, mês ou dia, conforme a necessidade da análise.
 
-A seguir, a medida \textit{OpenTickets} é criada, ela calculará a quantidade de chamados que estão abertos em uma data, permitindo a montagem de gráficos de acompanhamento. A listagem abaixo define a medidaL
+\subsection{Quantidade de chamados abertos em uma data}
+
+Para acompanhar a quantidade de chamados que permanecem abertos em cada dia, foi criada a medida \texttt{OpenTickets}. Seu cálculo considera como abertos os chamados cuja data de criação seja anterior ou igual à data analisada e cuja data de conclusão esteja vazia ou seja posterior ou igual à data analisada.
+
 \begin{lstlisting}
-	OpenTickets = 
-	CALCULATE (
+	OpenTickets =
+	CALCULATE(
 	COUNTROWS(chamados),
-	FILTER (
+	FILTER(
 	chamados,
 	chamados[creationDate] <= MAX(DateTable[Date]) &&
-	(ISBLANK(chamados[completedDate]) || chamados[completedDate] >= MAX(DateTable[Date]))
+	(
+	ISBLANK(chamados[completedDate]) ||
+	chamados[completedDate] >= MAX(DateTable[Date])
+	)
 	)
 	)
 \end{lstlisting}
+
 \begin{center}
-	\text{Código da medida \textit{OpenTickets}}
+	\text{Código da medida \texttt{OpenTickets}.}
 \end{center}
 
-A função \texttt{CALCULATE} executará a função \texttt{COUNTROWS} considerando a condicional apresentada na função \texttt{FILTER} \cite{DAX_CALCULATE} \cite{DAX_COUNTROWS} \cite{DAX_FILTER}. Neste caso, serão contadas as linhas que têm chamados com datas de criação anteriores a data que está em \texttt{MAX(DateTable[Date])} e que não tenham data de completude, ou que a data de completude esteja no futuro, obtendo assim a quantidade de chamados abertos no dia.
+A função \texttt{FILTER} percorre a tabela de chamados e mantém os registros que atendem às condições estabelecidas. A função \texttt{COUNTROWS} contabiliza as linhas resultantes, enquanto \texttt{CALCULATE} avalia essa contagem no contexto de filtro definido pela expressão \cite{DAX_CALCULATE} \cite{DAX_COUNTROWS} \cite{DAX_FILTER}. A função \texttt{MAX} obtém a data considerada no contexto atual do visual. Dessa maneira, a medida permite reconstruir a quantidade de chamados ainda abertos em cada data, inclusive aqueles que foram criados anteriormente e permaneceram pendentes.
 
-\subsection{Interações dos elementos visuais do relatório}
-No PBI, os gráficos podem agir como filtros, afetando outros visuais na página, o que pode não ser desejável. Para isso, a plataforma permite a edição de quais elementos podem interagir entre si numa página \cite{Editar_Interacoes}. Na barra superior, na aba "Formatar", a opção "Editar interações" muda a forma como os visuais se afetam. Ao acionar a opção, os visuais passam a apresentar símbolos indicando se estão habilitados para a interação, ou não, e permitindo alterar seus comportamentos. Abaixo, imagens mostram onde a opção se encontra e como que os elementos da página ficam liberados para alterações:
+\subsection{Duração dos chamados e classificação em faixas}
 
-\begin{figure}[!ht]
-	\centering
-	\caption{Opção de Editar interações.}
-	\includegraphics[width=1\linewidth]{figuras/Editar_interacoes_botao.png}
-	\label{fig:placeholder Figura 9}
-\end{figure}
-
-\begin{figure}[!ht]
-	\centering
-	\caption{Visuais liberados para modificação de suas interações. Os elementos passam a mostrar opções no canto superior direito, com um botão de filtro e um de cancelar.}
-	\includegraphics[width=1\linewidth]{figuras/Editar_interacoes.png}
-	\label{fig:placeholder Figura 10}
-\end{figure}
-
-\section{Montagem do Visual}
-A montagem do visual deve comunicar ao usuário informações que permitem tomada de decisões estratégicas para o negócio. Portanto, o uso de filtros e de gráficos deve ser escolhido de forma a entregar clareza e não induzir ao erro. Neste relatório, 3 páginas fornecem perspectivas diferentes para que o usuário possa obter informações, auxiliando na tomada de decisões e na detecção de anomalias que possam estar em andamento. Para manter as identidades dos usuários e operadores em anonimato e cumprir com os requisitos da LGPD, os nomes e detalhamento das requisições foram censurados.
-
-\subsection{Página 1 - Estatísticas Gerais}
-Esta tela apresenta para o gestor um apanhado dos chamados que estão registrados no sistema, independente de seus estados \footnote{Exemplos de estados podem ser aguardando resposta do usuário, aguardando fornecedor, chamado encerrado...}, entregando um panorama, entregando um estado geral do ITSM. Ela é composta por dois gráficos de barra, um gráfico de minha, uma tabela com detalhes de chamado, um card com o total de chamados registrados e filtros para selecionar departamento da empresa, o sub-departamento da TI, podendo ser Infraestrutura, ou Sistemas, e o intervalo de datas que o usuário deseja consultar. Uma imagem da tela será exibida a seguir:
-
-\begin{figure}[!ht]
-	\centering
-	\caption{Tela de Estatísticas Gerais.}
-	\includegraphics[width=1\linewidth]{figuras/Estatisticas_Gerais.png}
-	\label{fig:placeholder Figura 11}
-\end{figure}
-
-O primeiro elemento desta tela é o gráfico de barras mostrando a quantidade de chamados abertos por localidade da empresa, essa escolha visa priorizar a alocação de força de trabalho nas diversas regiões geográficas. Junto ao gráfico de linha abaixo, permitem ver caso esteja ocorrendo uma anomalia na quantidade de chamados abertos por cada unidade. O seu posicionamento também sugere ao usuário que este elemento é primordial, pois influencia diretamente nos custos de operação do departamento e no direcionamento dos investimentos a serem feitos.
-
-O segundo elemento é o gráfico de linhas, ele permite ao usuário acompanhar a tendência de quantos chamados que são abertos em um dia. Com isso, o gestor consegue ver padrões de abertura de chamados ao longo do intervalo de data filtrado e antecipar a alocação de pessoal observando os eventos passados.
-
-O terceiro elemento, outro gráfico de barras, faz a divisão dos chamados pelos departamentos da empresa. Seguindo a mesma lógica do primeiro elemento da tela, ela permite acompanhar a quantidade de chamados que cada departamento possui, permitindo priorizar atendimentos e detectar problemas recorrentes. Também tem interação ativa com o gráfico de linha, permitindo ver anomalias no número de chamados abertos ao longo do tempo.
-
-\subsection{Página 2 - Chamados Ativos}
-O foco desta página é ser usada na reunião diária dos funcionários da TI. Nessa reunião, os funcionários podiam apresentar dificuldades que estivessem passando para a equipe, permitindo o compartilhamento de ideias para a resolução de problemas. Esta página permite ver os chamados associados a cada funcionário, o subdepartamento associado, e filtrar a janela de tempo de quais chamados são vistos. Uma imagem da tela será exibida a seguir:
-
-\begin{figure}[!ht]
-	\centering
-	\caption{Tela de Chamados Ativos.}
-	\includegraphics[width=1\linewidth]{figuras/Chamados_Ativos.png}
-	\label{fig:placeholder Figura 12}
-\end{figure}
-
-O primeiro elemento desta tela é um histograma do tempo que os chamados estão em aberto. Ele entrega para a equipe quantos chamados estão em diferentes intervalos de espera, permitindo que se possa fazer uma priorização nos chamados que estão há mais tempo abertos. 
-
-O Power BI possui opção nativa para criar histogramas, porém ela não entrega um grau de liberdade adequado na função de divisão de cestas para a aplicação sendo apresentada. Para resolver isso, criam-se duas colunas dinâmicas em DAX, uma fará a contagem de quantos dias um chamado está aberto, a outra classificará os chamados conforme as cestas que foram definidas pela gestão. A decisão de se criar duas colunas separadas permite utilizar o resultado do cálculo de dias em alguma modificação futura.
-
-O primeiro código apresentado faz a contagem dos dias em que um chamado está aberto:
+Na página destinada ao acompanhamento dos chamados ativos, é importante conhecer há quanto tempo cada solicitação permanece aberta. Para isso, foi criada a coluna calculada \texttt{totalDurationInDays}, que calcula a diferença, em dias, entre a data de criação e a data de conclusão. Quando o chamado ainda não foi concluído, utiliza-se a data atual como limite final do cálculo.
 
 \begin{lstlisting}
-	totalDurationInDays = IF(ISBLANK(chamados[closedDate]), DATEDIFF(chamados[creationDate], TODAY(),DAY), DATEDIFF(chamados[creationDate], chamados[closedDate], DAY))
+	totalDurationInDays =
+	IF(
+	ISBLANK(chamados[closedDate]),
+	DATEDIFF(chamados[creationDate], TODAY(), DAY),
+	DATEDIFF(chamados[creationDate], chamados[closedDate], DAY)
+	)
 \end{lstlisting}
+
 \begin{center}
-	\text{Código DAX para o cálculo de quantos dias um chamado está em aberto.}
+	\text{Código DAX para o cálculo da duração dos chamados em dias.}
 \end{center}
 
-A primeira função é o \texttt{IF}, que recebe como parâmetros um teste lógico, o resultado do \texttt{IF} caso verdadeiro, e o resultado caso falso, sendo este último opcional \cite{DAX_IF}. A função \texttt{ISBLANK} é o teste lógico, ela recebe uma coluna de uma tabela, retorna verdadeiro caso um campo esteja vazio, e falso caso não \cite{DAX_ISBLANK}. A função \texttt{DATEDIFF} calcula a diferença entre duas datas, recebe como parâmetros a data inicial, a data final, e um identificador para definir a unidade de tempo que será usada para comunicar a diferença \cite{DAX_DATEDIFF}. Um ponto importante a considerar sobre a função \texttt{DATEDIFF} é que ela retorna intervalo negativo caso a data final seja anterior à data inicial, então é necessário se atentar à ordem dos operadores para que os resultados sejam coerentes com o relatório.
+A função \texttt{IF} seleciona a expressão a ser executada conforme o resultado de uma condição lógica \cite{DAX_IF}. Nesse caso, \texttt{ISBLANK} verifica se a data de conclusão está vazia. Se estiver, \texttt{DATEDIFF} calcula a diferença entre a data de criação e a data atual; caso contrário, calcula a diferença entre a criação e a conclusão. A função \texttt{DATEDIFF} recebe as datas inicial e final e a unidade de tempo desejada \cite{DAX_ISBLANK} \cite{DAX_DATEDIFF}.
 
-
-O segundo código faz a classificação da duração dos chamados nas cestas definidas pela gestão:
+Para construir o histograma, os valores de duração são agrupados em intervalos definidos para a análise. Essa classificação é realizada pela coluna calculada \texttt{durationBin}, que associa cada chamado a uma faixa de dias.
 
 \begin{lstlisting}
-	durationBin = IF(chamados[totalDurationInDays] >= 0 && chamados[totalDurationInDays] <= 5, "00 - 05", 
-	IF(chamados[totalDurationInDays] > 5 && chamados[totalDurationInDays] <= 10, "06 - 10",
-	IF(chamados[totalDurationInDays] > 10 && chamados[totalDurationInDays] <= 20, "11 - 20",
-	IF(chamados[totalDurationInDays] > 20 && chamados[totalDurationInDays] <= 30, "21 - 30",
+	durationBin =
+	IF(
+	chamados[totalDurationInDays] >= 0 &&
+	chamados[totalDurationInDays] <= 5,
+	"00 - 05",
+	IF(
+	chamados[totalDurationInDays] > 5 &&
+	chamados[totalDurationInDays] <= 10,
+	"06 - 10",
+	IF(
+	chamados[totalDurationInDays] > 10 &&
+	chamados[totalDurationInDays] <= 20,
+	"11 - 20",
+	IF(
+	chamados[totalDurationInDays] > 20 &&
+	chamados[totalDurationInDays] <= 30,
+	"21 - 30",
 	"30+"
-	) 
+	)
 	)
 	)
 	)
 \end{lstlisting}
+
 \begin{center}
-	\text{Código DAX para a classificação das cestas do histograma.}
+	\text{Código DAX para classificação dos chamados por faixa de duração.}
 \end{center}
 
-Ele cria uma coluna chamada \texttt{durationBin}, que contém os textos informando a qual intervalo cada chamado se encaixa. O código consiste em \texttt{IF}s aninhados que testam o resultado do cálculo da coluna \texttt{totalDurationInDays} e salvam o texto correspondente.
+A expressão utiliza condições \texttt{IF} aninhadas para classificar os chamados nos intervalos de 0 a 5, de 6 a 10, de 11 a 20, de 21 a 30 e acima de 30 dias. A separação entre o cálculo da duração e a classificação em faixas permite reutilizar o valor numérico em outras análises, sem depender dos limites escolhidos para o histograma.
 
-Com essa informação, é possível utilizar o visual de gráfico em barra para montar o histograma, passando para o parâmetro do eixo x a coluna com as cestas, e para o eixo y a coluna com o identificador do chamado, que a visualização utiliza para fazer a contagem.
+\section{Construção das visualizações e organização do relatório}
 
-O segundo elemento desta tela é uma tabela onde se apresenta os detalhes dos chamados. Nela, os funcionários da TI podem ver a requisição, data de criação, identificador do chamado, e o estado em que se encontra. Ela possui filtros aplicados para exibir chamados com mais de 3 dias abertos e em estados de atendimento definidos pela gestão.
+Com os dados tratados, relacionados e enriquecidos pelas métricas DAX, inicia-se a construção das páginas do relatório. A escolha dos gráficos e filtros considera a finalidade de cada página e o público que utilizará as informações. O relatório foi organizado em três páginas complementares: Estatísticas Gerais, Chamados Ativos e Evolução dos Chamados Abertos por Departamento.
+
+Além da seleção dos tipos de gráficos, foram configuradas as interações entre os elementos visuais. No Power BI, um gráfico pode atuar como filtro de outros visuais da mesma página. Esse comportamento é útil quando se deseja explorar os dados por uma dimensão específica, mas pode ser inadequado quando uma seleção altera indicadores que deveriam permanecer independentes. Para controlar esse comportamento, a ferramenta disponibiliza o recurso \textit{Editar interações}, localizado na faixa superior, na aba \textit{Formatar} \cite{Editar_Interacoes}. As Figuras~\ref{fig:implementacao-editar-interacoes-botao} e~\ref{fig:implementacao-editar-interacoes} mostram, respectivamente, o comando e as opções exibidas nos visuais após sua ativação.
 
 \begin{figure}[!ht]
 	\centering
-	\caption{Filtros aplicados à tabela. As opções de modificação dos parâmetros de filtro estão à direita}
+	\caption{Comando Editar interações na faixa superior do Power BI.}
+	\includegraphics[width=1\linewidth]{figuras/Editar_interacoes_botao.png}
+	\label{fig:implementacao-editar-interacoes-botao}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Opções de interação exibidas nos elementos visuais.}
+	\includegraphics[width=1\linewidth]{figuras/Editar_interacoes.png}
+	\label{fig:implementacao-editar-interacoes}
+\end{figure}
+
+A configuração das interações permite determinar se uma seleção deve filtrar, realçar ou não afetar determinado visual. Essa possibilidade foi utilizada para adequar o comportamento das páginas aos objetivos de análise, evitando que filtros destinados a uma informação alterassem indicadores que deveriam apresentar uma visão geral.
+
+\subsection{Página 1: Estatísticas Gerais}
+
+A página de Estatísticas Gerais apresenta um panorama dos chamados registrados no TOPdesk, independentemente de seu estado. Seu objetivo é permitir que a gestão observe a distribuição dos registros e identifique concentrações ou variações que mereçam investigação. A Figura~\ref{fig:implementacao-estatisticas-gerais} apresenta a página desenvolvida.
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Página de Estatísticas Gerais do relatório.}
+	\includegraphics[width=1\linewidth]{figuras/Estatisticas_Gerais.png}
+	\label{fig:implementacao-estatisticas-gerais}
+\end{figure}
+
+A página reúne gráficos de barras, um gráfico de linhas, uma tabela com informações dos chamados, um cartão com a quantidade total de registros e filtros por departamento, subdepartamento de TI e intervalo de datas. O gráfico de barras que apresenta a quantidade de chamados por localidade permite comparar a demanda entre as unidades da empresa. Essa perspectiva pode auxiliar a gestão na identificação de regiões que concentram maior volume de solicitações e no planejamento da distribuição da equipe.
+
+O gráfico de linhas apresenta a evolução da quantidade de chamados criados ao longo do período selecionado. A visualização temporal permite observar padrões de abertura e variações que possam estar associadas a eventos específicos. Em conjunto com a distribuição por localidade, o gráfico contribui para a identificação de alterações na demanda.
+
+O segundo gráfico de barras apresenta a quantidade de chamados por departamento. Essa divisão permite identificar quais áreas concentram maior número de solicitações e pode apoiar a priorização de atendimentos ou a investigação de problemas recorrentes. Os filtros e as interações entre os gráficos permitem restringir a análise a departamentos ou períodos específicos.
+
+\subsection{Página 2: Chamados Ativos}
+
+A página de Chamados Ativos foi concebida para apoiar o acompanhamento operacional da equipe de TI, especialmente durante as reuniões diárias. Seu foco é apresentar os chamados que ainda demandam atendimento, permitindo observar sua duração, seu responsável e seu estado. A Figura~\ref{fig:implementacao-chamados-ativos} apresenta a página.
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Página de Chamados Ativos do relatório.}
+	\includegraphics[width=1\linewidth]{figuras/Chamados_Ativos.png}
+	\label{fig:implementacao-chamados-ativos}
+\end{figure}
+
+O primeiro elemento é um histograma que distribui os chamados por faixas de duração. Embora o Power BI disponha de recursos nativos para agrupamento em intervalos, a classificação por meio da coluna \texttt{durationBin} permite controlar os limites das faixas utilizadas. No visual, a coluna de faixas é atribuída ao eixo horizontal, enquanto o identificador do chamado é utilizado para contabilizar os registros em cada intervalo. Dessa forma, a equipe pode identificar solicitações que permanecem abertas há mais tempo e avaliar sua priorização.
+
+A tabela de chamados apresenta informações operacionais, como identificador, data de criação, descrição da requisição e estado. Foram configurados filtros para limitar sua exibição aos chamados com mais de três dias de duração e aos estados de atendimento definidos pela gestão. A Figura~\ref{fig:implementacao-filtros-tabela} apresenta os filtros aplicados à tabela.
+
+\begin{figure}[!ht]
+	\centering
+	\caption{Filtros aplicados à tabela de chamados ativos.}
 	\includegraphics[width=1\linewidth]{figuras/Filtros_Tabela.png}
-	\label{fig:placeholder Figura 13}
+	\label{fig:implementacao-filtros-tabela}
 \end{figure}
 
-O terceiro elemento de interesse são os 3 cartões que apresentam a quantidade de chamados, a média e a mediana do tempo. Para que a média e mediana não mostrassem a performance dos funcionários durante a reunião, as interações partindo do filtro de operadores é desligada, exceto em uma versão deste relatório disponibilizado exclusivamente para a gestão. Sabendo a média e a mediana é possível inferir se há chamados que estão abertos há muito tempo e que podem precisar de priorização. 
+A página também apresenta cartões com a quantidade de chamados, a média e a mediana do tempo de duração. A média e a mediana complementam a leitura do histograma: enquanto a distribuição mostra a concentração dos chamados por faixa, as medidas de tendência central oferecem uma síntese da duração. Para evitar que a seleção de um operador alterasse esses indicadores durante a reunião e expusesse uma comparação individual de desempenho, a interação originada pelo filtro de operadores foi desabilitada nesses cartões. Uma versão específica do relatório, destinada à gestão, mantém uma configuração apropriada ao seu propósito.
 
-Por fim, esta página conta com 3 filtros, sendo de operador, de intervalo de data, e de subdepartamento. Com eles os funcionários da TI conseguem acompanhar melhor os chamados, já que permitem um controle fino sobre as informações que são exibidas no gráfico, na tabela e nos cartões.
+Por fim, os filtros de operador, intervalo de datas e subdepartamento permitem restringir os registros apresentados. Com isso, a equipe pode consultar os chamados de seu contexto de atuação sem perder a visão dos indicadores definidos para a página.
 
-\subsection{Páginas 3 - Evolução dos Chamados Abertos por Departamento}
+\subsection{Página 3: Evolução dos Chamados Abertos por Departamento}
 
-A última página deste relatório permite o acompanhamento da quantidade de chamados abertos por dia, com separação por departamento. Com ela, o gestor pode verificar tendências de aumento, ou diminuição, na quantidade de chamados e auxilia na tomada de decisões estratégicas do departamento, bem como em negociações sobre SLA (Service-Level Agreement). Segundo a IBM, é "... um contrato entre um provedor de serviço e um cliente que define o serviço a ser fornecido e o nível de performance esperado" \cite{SLA_Definition}. Uma imagem desta tela será exibida a seguir:
+A terceira página permite acompanhar a quantidade de chamados que permanecem abertos ao longo do tempo, com separação por departamento. Sua finalidade é apoiar a identificação de tendências de crescimento ou redução do volume de solicitações e fornecer subsídios para decisões de gestão e discussões sobre níveis de serviço. Um SLA (\textit{Service-Level Agreement}) é um acordo entre um provedor de serviço e um cliente que estabelece o serviço a ser fornecido e o nível de desempenho esperado \cite{SLA_Definition}. A Figura~\ref{fig:implementacao-evolucao-departamento} apresenta a página.
 
 \begin{figure}[!ht]
 	\centering
-	\caption{Tela de Evolução dos Chamados Abertos por Departamento}
+	\caption{Página de Evolução dos Chamados Abertos por Departamento.}
 	\includegraphics[width=1\linewidth]{figuras/Evolucao_Chamados_Abertos_Departamento.png}
-	\label{fig:placeholder Figura 14}
+	\label{fig:implementacao-evolucao-departamento}
 \end{figure}
 
-Esta página tem como elemento principal um gráfico de linha, que permite o acompanhamento ao longo do tempo da quantidade de chamados que estão abertos. O gráfico foi alimentado com dados da tabela dinâmica e medida criadas anteriormente. Também dispõe de filtros para o intervalo de data, o(s) departamento(s), e o(s) subdepartamento(s) da TI a serem consultados. 
+O elemento principal é um gráfico de linhas alimentado pela tabela \texttt{DateTable} e pela medida \texttt{OpenTickets}. Para cada data do eixo temporal, a medida calcula quantos chamados já haviam sido criados e ainda não tinham sido concluídos. A separação por departamento permite comparar a evolução das demandas entre as áreas e identificar possíveis acúmulos de chamados.
 
-Finalizada a montagem dessas 3 páginas, o relatório pode ser submetido ao serviço de nuvem do Power BI, da Microsoft, podendo ser atualizado automaticamente, e prover acesso para todos os funcionários da TI.
+A página disponibiliza filtros por intervalo de datas, departamento e subdepartamento de TI. A combinação desses filtros com a medida DAX possibilita examinar o comportamento do volume de chamados em diferentes recortes, mantendo a análise temporal como elemento central.
+
+\section{Disponibilização do relatório}
+
+Após a conclusão das consultas, da modelagem e das visualizações, o relatório pode ser publicado no serviço Power BI na nuvem. A publicação permite compartilhar o conteúdo com os usuários autorizados e configurar a atualização dos dados, de modo que as páginas reflitam os registros mais recentes disponíveis no TOPdesk.
+
+A atualização depende da execução das consultas de origem e das credenciais necessárias para acessar a API. Como a extração foi implementada com requisições HTTP no Script M, a configuração do ambiente de atualização deve considerar os requisitos de conectividade e autenticação do serviço. Uma vez configurada a atualização e definidos os acessos, os integrantes autorizados da equipe de TI podem consultar as páginas do relatório e utilizar seus filtros para acompanhar os chamados.
+
+Dessa forma, o processo implementado integra as funcionalidades apresentadas no Capítulo~\ref{cap:relacionados}: a API REST do TOPdesk fornece os registros; o Power Query realiza a extração e o tratamento por meio do Script M; o modelo do Power BI organiza as relações entre tabelas; e o DAX produz as métricas utilizadas nas visualizações. O resultado é um relatório com perspectivas gerenciais e operacionais complementares, voltado ao acompanhamento dos chamados de TI na EDF.
