@@ -28,24 +28,21 @@
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \contentsline {chapter}{\chapternumberline {\textnormal {3}}\MakeTextUppercase []{Implementação}}{23}{chapter.3}%
 \contentsline {section}{\numberline {\textnormal {\textnormal {3}.1}}Preparação do ambiente de trabalho}{23}{section.3.1}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.2}}Extração dos dados}{27}{section.3.2}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.3}}Transformação e limpeza dos dados}{30}{section.3.3}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.4}}Carregamento dos dados}{34}{section.3.4}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.5}}Modelagem e relacionamento entre tabelas}{34}{section.3.5}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.6}}Cálculos e métricas analíticas com DAX}{35}{section.3.6}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.6}.1}}Tabela de datas}{35}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.6}.2}}Quantidade de chamados abertos em uma data}{36}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.6}.3}}Duração dos chamados e classificação em faixas}{36}{subsection.3.6.3}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.7}}Construção das visualizações e organização do relatório}{38}{section.3.7}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.7}.1}}Página 1: Estatísticas Gerais}{38}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.7}.2}}Página 2: Chamados Ativos}{40}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.7}.3}}Página 3: Evolução dos Chamados Abertos por Departamento}{41}{subsection.3.7.3}%
-\contentsline {section}{\numberline {\textnormal {\textnormal {3}.8}}Disponibilização do relatório}{42}{section.3.8}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.2}}Extração dos dados}{26}{section.3.2}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.3}}Transformação e limpeza dos dados}{28}{section.3.3}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.4}}Carregamento dos dados}{33}{section.3.4}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.5}}Modelagem e relacionamento entre tabelas}{33}{section.3.5}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.6}}Cálculos e métricas analíticas com DAX}{34}{section.3.6}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.6}.1}}Tabela de datas}{34}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.6}.2}}Quantidade de chamados abertos em uma data}{35}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.6}.3}}Duração dos chamados e classificação em faixas}{35}{subsection.3.6.3}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.7}}Construção das visualizações e organização do relatório}{37}{section.3.7}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.7}.1}}Página 1: Estatísticas Gerais}{37}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.7}.2}}Página 2: Chamados Ativos}{39}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {3}.7}.3}}Página 3: Evolução dos Chamados Abertos por Departamento}{40}{subsection.3.7.3}%
+\contentsline {section}{\numberline {\textnormal {\textnormal {3}.8}}Disponibilização do relatório}{41}{section.3.8}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {\textnormal {4}}\MakeTextUppercase []{Conclusão}}{44}{chapter.4}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {4}.0}.1}}Síntese do Trabalho e Contribuições}{44}{subsection.4.0.1}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {4}.0}.2}}Desafios e Considerações Práticas}{44}{subsection.4.0.2}%
-\contentsline {subsection}{\numberline {\textnormal {\textnormal {\textnormal {4}.0}.3}}Possíveis Melhorias}{45}{subsection.4.0.3}%
+\contentsline {chapter}{\chapternumberline {\textnormal {4}}\MakeTextUppercase []{Conclusão}}{43}{chapter.4}%
 \vspace {\cftbeforechapterskip }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
-\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{46}{section*.37}%
+\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{45}{section*.36}%

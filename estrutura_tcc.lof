@@ -1,18 +1,17 @@
 \babel@toc {brazil}{}\relax 
 \contentsline {figure}{\numberline {1}{\ignorespaces Logo da EDF - 2025.}}{17}{figure.caption.17}%
 \contentsline {figure}{\numberline {2}{\ignorespaces Tela da aplicação Power BI exibindo um relatório em branco.}}{24}{figure.caption.18}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Localização da opção Transformar Dados na faixa superior do Power BI.}}{24}{figure.caption.19}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Localização da opção \textit {Transformar Dados} na faixa superior do Power BI.}}{24}{figure.caption.19}%
 \contentsline {figure}{\numberline {4}{\ignorespaces Editor do Power Query sem consultas carregadas.}}{24}{figure.caption.20}%
 \contentsline {figure}{\numberline {5}{\ignorespaces Seleção da opção de consulta em branco.}}{25}{figure.caption.21}%
 \contentsline {figure}{\numberline {6}{\ignorespaces Acesso ao Editor Avançado do Power Query.}}{25}{figure.caption.22}%
 \contentsline {figure}{\numberline {7}{\ignorespaces Editor Avançado com a estrutura inicial de uma consulta.}}{26}{figure.caption.23}%
-\contentsline {figure}{\numberline {8}{\ignorespaces Criação de uma nova consulta no Power Query.}}{29}{figure.caption.24}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Consulta no Editor do Power Query durante a transformação dos dados.}}{33}{figure.caption.25}%
-\contentsline {figure}{\numberline {10}{\ignorespaces Indicação do processo de carregamento dos dados no Power BI.}}{34}{figure.caption.26}%
-\contentsline {figure}{\numberline {11}{\ignorespaces Visão de modelo do Power BI com as tabelas e seus relacionamentos.}}{35}{figure.caption.27}%
-\contentsline {figure}{\numberline {12}{\ignorespaces Comando Editar interações na faixa superior do Power BI.}}{38}{figure.caption.28}%
-\contentsline {figure}{\numberline {13}{\ignorespaces Opções de interação exibidas nos elementos visuais.}}{39}{figure.caption.29}%
-\contentsline {figure}{\numberline {14}{\ignorespaces Página de Estatísticas Gerais do relatório.}}{39}{figure.caption.30}%
-\contentsline {figure}{\numberline {15}{\ignorespaces Página de Chamados Ativos do relatório.}}{40}{figure.caption.31}%
-\contentsline {figure}{\numberline {16}{\ignorespaces Filtros aplicados à tabela de chamados ativos.}}{41}{figure.caption.32}%
-\contentsline {figure}{\numberline {17}{\ignorespaces Página de Evolução dos Chamados Abertos por Departamento.}}{42}{figure.caption.33}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Criação de uma nova consulta no Power Query.}}{28}{figure.caption.24}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Consulta no Editor do Power Query durante a transformação dos dados.}}{32}{figure.caption.25}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Visão de modelo do Power BI com as tabelas e seus relacionamentos.}}{33}{figure.caption.26}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Comando \textit {Editar interações} na faixa superior do Power BI.}}{37}{figure.caption.27}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Opções de interação exibidas nos elementos visuais.}}{38}{figure.caption.28}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Página \textit {Estatísticas Gerais} do relatório.}}{38}{figure.caption.29}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Página \textit {Chamados Ativos} do relatório.}}{39}{figure.caption.30}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Filtros aplicados à tabela de chamados ativos.}}{40}{figure.caption.31}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Página \textit {Evolução dos Chamados Abertos por Departamento}.}}{41}{figure.caption.32}%

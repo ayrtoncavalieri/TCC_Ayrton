@@ -1,30 +1,40 @@
 \chapter{Conclusão}
 
-Este Trabalho de Conclusão de Curso apresentou o desenvolvimento e a implementação de uma solução de \textit{Business Intelligence} voltada para o acompanhamento e a gestão de chamados de suporte técnico em uma plataforma ITSM (TOPdesk), utilizando o Power BI no âmbito das atividades de estágio na EDF Brasil (Usina Termelétrica Norte Fluminense -- UTENF). 
+Este Trabalho de Conclusão de Curso apresentou o desenvolvimento e a implementação de uma solução de \textit{Business Intelligence} voltada ao acompanhamento e  gestão de chamados de suporte técnico em uma plataforma ITSM %(TOPdesk), utilizando o Power BI, 
+no âmbito das atividades de estágio na EDF Brasil (Usina Termelétrica Norte Fluminense -- UTENF). 
 
-\subsection{Síntese do Trabalho e Contribuições}
+%\subsection{Síntese do trabalho e contribuições}
 
 Ao longo do desenvolvimento, demonstrou-se como a transição de uma gestão puramente reativa para uma abordagem proativa e orientada a dados pode ser alcançada por meio da integração eficiente entre sistemas corporativos e ferramentas de visualização avançadas. As principais entregas e contribuições deste trabalho contemplam:
 
 \begin{itemize}
-	\item \textbf{Integração e Automação de Dados via API REST:} Superou-se a limitação de paginação da API do TOPdesk, que retorna blocos de até $10.000$ linhas por requisição, por meio do desenvolvimento de uma função recursiva em Script M (\texttt{FetchData}), garantindo a extração automatizada e íntegra dos registros.
-	\item \textbf{Modelagem e Tratamento Rigoroso (ETL):} A aplicação de rotinas de transformação no Power Query permitiu a limpeza, a padronização de nomenclaturas de departamentos e o saneamento das informações brutas provenientes da plataforma ITSM.
-	\item \textbf{Cálculos Avançados com DAX:} A criação de tabelas dinâmicas baseadas em intervalos de datas (\texttt{DateTable}) e de medidas customizadas (\texttt{OpenTickets}, cálculo de duração em dias e categorização por faixas no histograma) viabilizou a construção de métricas precisas de desempenho.
-	\item \textbf{Painéis Interativos Multiperspectiva:} Foram estruturadas três páginas no Power BI -- abrangendo as seções de Estatísticas Gerais, Chamados Ativos para suporte às reuniões diárias da equipe técnica, e a Evolução dos Chamados Abertos por Departamento --, fornecendo aos gestores uma visão centralizada para a identificação de gargalos e predição de tendências.
+	\item \textbf{integração e automação de dados via API REST}: superou-se a limitação de paginação da API do TOPdesk, que retorna blocos de até $10.000$ linhas por requisição, por meio do desenvolvimento de uma função recursiva em Script M (\texttt{FetchData}), garantindo a extração automatizada e íntegra dos registros;
+	
+	\item \textbf{modelagem e tratamento rigoroso (ETL)}: a aplicação de rotinas de transformação no Power Query permitiu a limpeza, a padronização de nomenclaturas de departamentos e o saneamento das informações brutas provenientes da plataforma ITSM;
+	
+	\item \textbf{cálculos avançados com DAX}: a criação de tabelas dinâmicas baseadas em intervalos de datas (\texttt{DateTable}) e de medidas customizadas (\texttt{OpenTickets}, cálculo de duração em dias e categorização por faixas no histograma) viabilizou a construção de métricas precisas de desempenho; e
+	
+	\item \textbf{painéis interativos multiperspectiva}: foram estruturadas três páginas no Power BI, abrangendo as seções de Estatísticas Gerais, Chamados Ativos para suporte às reuniões diárias da equipe técnica, e a Evolução dos Chamados Abertos por Departamento, fornecendo aos gestores uma visão centralizada para a identificação de gargalos e predição de tendências.
 \end{itemize}
 
-\subsection{Desafios e Considerações Práticas}
+%\subsection{Desafios e considerações práticas}
 
 Durante a execução do projeto, destacou-se a necessidade de lidar com a paginação de dados via requisições HTTP utilizando programação funcional em Script M, visto que a linguagem não emprega estruturas de repetição imperativas tradicionais (\textit{loops}). Além disso, em cumprimento aos requisitos de privacidade e proteção de dados da Lei Geral de Proteção de Dados (LGPD), procedeu-se ao rigoroso mascaramento e à anonimização de nomes de operadores e detalhes das requisições, assegurando a conformidade legal sem comprometer a utilidade analítica dos relatórios gerenciais.
 
-\subsection{Possíveis Melhorias}
 
-Como perspectivas para a evolução deste trabalho, apontam-se as seguintes direções:
+
+%\subsection{Possíveis Melhorias}
+
+Como perspectivas para a evolução do trabalho desenvolvido na empresa, apontam-se as seguintes direções:
 
 \begin{itemize}
-	\item \textbf{Integração com Modelos Preditivos:} Incorporação de scripts em Python ou R no ecossistema do Power BI para antecipar picos de chamados com base em análise preditiva e séries temporais.
-	\item \textbf{Automação de Alertas de SLA:} Implementação de notificações automatizadas para alertar sobre chamados excedentes ou próximos ao limite de prazo acordado (\textit{Service-Level Agreement}).
-	\item \textbf{Expansão de Fontes de Dados:} Ampliação da cobertura do painel para integrar outras bases de ativos de Tecnologia de Operação (TO) e Infraestrutura, consolidando uma visão unificada de todo o ecossistema tecnológico da organização.
+	\item \textbf{integração com modelos preditivos:} incorporação de \textit{scripts} em Python ou R no ecossistema do Power BI para antecipar picos de chamados com base em análise preditiva e séries temporais;
+	
+	\item \textbf{automação de alertas de SLA:} implementação de notificações automatizadas para alertar sobre chamados excedentes ou próximos ao limite de prazo acordado (\textit{Service-Level Agreement}); e
+	
+	\item \textbf{expansão de fontes de fados:} ampliação da cobertura do painel para integrar outras bases de ativos de Tecnologia de Operação (TO) e Infraestrutura, consolidando uma visão unificada de todo o ecossistema tecnológico da organização.
 \end{itemize}
 
-Em suma, o projeto atingiu com êxito os objetivos propostos, aplicando conceitos fundamentais de Ciência da Computação -- como engenharia de dados, requisições web e modelagem relacional -- na resolução de problemas reais de gestão corporativa e suporte à tomada de decisões estratégicas.
+
+
+O autor acredita que o projeto atingiu com êxito os objetivos propostos, aplicando conceitos fundamentais de Ciência da Computação -- como engenharia de dados, requisições \textit{web} e modelagem relacional -- na resolução de problemas reais de gestão corporativa e suporte à tomada de decisões estratégicas.
